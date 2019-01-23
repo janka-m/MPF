@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "type": "restaurants",
+            "members": [
+                {
+                    "name": "Metzgerwirt",
+                    "tel": "08248 7676",
+                    "web": "https://beim-metzgerwirt.de",
+                    "adresse": [
+                        {
+                            "strasse": "Poststrasse",
+                            "hausnummer": "10",
+                            "plz": "86857",
+                            "ort": "hurlach"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
