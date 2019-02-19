@@ -5,17 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <title>MPF</title>
 </head>
 
 <body>
-    <h1 class="center-align card-panel teal lighten-2">
-        MyPersonalFavorites
-    </h1>
-    <div>
+    <header>
+        <h1 class="center-align card-panel teal lighten-2">
+            MyPersonalFavorites
+        </h1>
+    </header>
+    <main>
+        <section id='anzeige'>
+            <div class="center-align">
+                <p>
+                <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" id="add"><i class="material-icons">add</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light cyan lighten-2"id="edit"><i class="material-icons">edit</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light red darken-2"id="del"><i class="material-icons">del</i></a>
+            </div>
+        </section>
+        <section id='ausgabe'>
 
-    </div>
+        </section>
+    </main>
+
 
     <footer class="page-footer">
         <div class="container">
@@ -32,7 +46,7 @@
             </div>
         </div>
     </footer>
-<script src="JS/script.js"></script>
+    <script src="JS/script.js"></script>
 </body>
 
 </html>
