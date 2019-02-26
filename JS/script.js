@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    //========================== Service Worker ==================
+    //========================== Service Worker =========================
     const regServiceWorker = function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -12,30 +12,64 @@
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
     };
-    //========================== Model ==================
+    //========================== Model ==================================
+    const model = {
+        datenArray: [{
+            Restaurants: [{
+                    name: "Metzgerwirt",
+                    adresse: "Poststraße 10, 86857 Hurlach",
+                    telefon: "08248 7676",
+                    internet: "www.beim-metzgerwirt.de"
+                },
+                {
+                    name: "Martha Pizzarei",
+                    adresse: "Hauptstraße 11, 82256 Fürstenfeldbruck",
+                    telefon: "08141 3566747",
+                    internet: "martha-pizzarei.de"
+                },
+                {
+                    name: "Gasthof Alter Wirt",
+                    adresse: "Moorenweiser Straße 5, 82269 Geltendorf",
+                    telefon: "08193 7454",
+                    internet: null
+                }
+            ]
+        }],
 
-
-    //========================== Presenter ==================
-    const presenter = {
-        init: function () {
-            //Eventhandler registieren
-            const btnAdd = document.getElementById('add');
-            const btnEdit = document.getElementById('edit');
-            const btnDel = document.getElementById('del');
+        // READ
+        readAll: function () {
+            return this.datenArray;
         }
     };
 
-    //========================== View ==================
+    //========================== Presenter ===============================
+    const presenter = {
+        init: function () {
+            // Daten (Restaurants) ausgeben
+            let daten = model.readAll();
+            view.init();
+            view.renderRead(daten);
 
-    //========================== App ==================
+        }
+    };
+
+    //========================== View ====================================
+    const view = {
+        anzeigeNode: null,
+        ausgabeNode: null,
+
+        init: function () {
+            this.anzeigeNode = document.getElementById('anzeige');
+            this.ausgabeNode = document.getElementById('ausgabe');
+        },
+        renderRead: function (daten) {
+            //Alles löschen
+            while (this.anzeigeNode.firstChild) {
+                this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
+            }
+            //Neue Liste hinzufügen
+        }
+    }
+    //========================== App ====================================
     presenter.init();
 })();
-
-
-
-
-
-
-
-
-
