@@ -78,27 +78,18 @@
                 const aNode = document.createElement('a');
                 aNode.setAttribute('href', '#!');
                 aNode.setAttribute('class', 'collection-item');
+                aNode.setAttribute('onclick','window.open(this.href)');
 
                 const aTextNode = document.createTextNode(name);
 
                 aNode.appendChild(aTextNode);
                 divNode.appendChild(aNode);
                 this.anzeigeNode.appendChild(divNode);
-
-
-
-
-
-
-
-
-
             }
 
-
+            // Eventhandler
+            
         }
-
-
     }
     //========================== App ====================================
     presenter.init();
