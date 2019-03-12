@@ -33,21 +33,29 @@
                 internet: ""
             }
         ],
-
-        // READ
+        //========================== readAll ===============================
         readAll: function () {
             return this.datenArray;
+        },
+        //========================== readOne ===============================
+        readOne: function (index) {
+            return this.datenArray[index];
         }
     };
 
     //========================== Presenter ===============================
     const presenter = {
+        //========================== init ===============================
         init: function () {
             // Daten (Restaurants) ausgeben
             let daten = model.readAll();
             view.init();
-            view.renderRead(daten);
-
+            view.renderList(daten);
+        },
+        //========================== listElementClick ===============================
+        listElementClick: function (index) {
+            let daten = model.readOne(index);
+            view.renderOne(daten);
         }
     };
 
@@ -55,12 +63,12 @@
     const view = {
         anzeigeNode: null,
         ausgabeNode: null,
-
+        //========================== init ====================================
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
-            this.ausgabeNode = document.getElementById('ausgabe');
         },
-        renderRead: function (daten) {
+        //========================== render List ====================================
+        renderList: function (daten) {
             //Alles löschen
             while (this.anzeigeNode.firstChild) {
                 this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
@@ -76,9 +84,12 @@
                 // const internet = daten[index].internet;
 
                 const aNode = document.createElement('a');
+                // Eventhandler
+                aNode.addEventListener('click', function () {
+                    presenter.listElementClick(index)
+                });
                 aNode.setAttribute('href', '#!');
                 aNode.setAttribute('class', 'collection-item');
-                aNode.setAttribute('onclick','window.open(this.href)');
 
                 const aTextNode = document.createTextNode(name);
 
@@ -86,9 +97,27 @@
                 divNode.appendChild(aNode);
                 this.anzeigeNode.appendChild(divNode);
             }
+        },
+        //========================== render One ====================================
+        renderOne: function (daten) {
+            //Alles löschen
+            while (this.anzeigeNode.firstChild) {
+                this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
+            }
+            //Neue Liste hinzufügen
+            const divNode = document.createElement('div');
+            const nameTextNode = document.createTextNode(daten.name);
+            const adresseTextNode = document.createTextNode(daten.adresse);
+            const telefonTextNode = document.createTextNode(daten.telefon);
+            const internetTextNode = document.createTextNode(daten.internet);
 
-            // Eventhandler
-            
+
+            divNode.appendChild(nameTextNode);
+            divNode.appendChild(adresseTextNode);
+            divNode.appendChild(telefonTextNode);
+            divNode.appendChild(internetTextNode);
+            this.anzeigeNode.appendChild(divNode);
+
         }
     }
     //========================== App ====================================
