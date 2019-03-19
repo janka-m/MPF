@@ -66,45 +66,60 @@
         //========================== init ====================================
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
+            this.buttonNode = document.getElementById('button');
         },
         //========================== render List ====================================
         renderList: function (daten) {
-            //Alles löschen
+            //========================== Alles löschen ====================================
             while (this.anzeigeNode.firstChild) {
                 this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
             }
-            //Neue Liste hinzufügen
-            const divNode = document.createElement('div');
-            divNode.classList.add('collection');
-
+            while (this.buttonNode.firstChild) {
+                this.buttonNode.removeChild(this.buttonNode.firstChild);
+            }
+            //========================== Neue Liste erzeugen ====================================
             for (let index = 0; index < daten.length; index++) {
                 const name = daten[index].name;
-                // const adresse = daten[index].adresse;
-                // const telefon = daten[index].telefon;
-                // const internet = daten[index].internet;
 
-                const aNode = document.createElement('a');
-                // Eventhandler
-                aNode.addEventListener('click', function () {
+                const aNodeList = document.createElement('a');
+                aNodeList.setAttribute('href', '#!');
+                aNodeList.setAttribute('class', 'collection-item');
+                //========================== Eventhandler ====================================
+                aNodeList.addEventListener('click', function () {
                     presenter.listElementClick(index)
-                });
-                aNode.setAttribute('href', '#!');
-                aNode.setAttribute('class', 'collection-item');
-
-                const aTextNode = document.createTextNode(name);
-
-                aNode.appendChild(aTextNode);
-                divNode.appendChild(aNode);
-                this.anzeigeNode.appendChild(divNode);
+                });              
+                const ListTextNode = document.createTextNode(name);
+                //========================== Liste zusammensetzen ====================================
+                aNodeList.appendChild(ListTextNode);
+                this.anzeigeNode.appendChild(aNodeList);
             }
+            //========================== Button Add erzeugen ====================================
+            const aNodeButtonAdd = document.createElement('a');
+            aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            aNodeButtonAdd.setAttribute('id', 'add');
+
+            const iNodeButtonAdd = document.createElement('i');
+            iNodeButtonAdd.setAttribute('class', 'material-icons');
+            //========================== Eventlistener Button ====================================
+            iNodeButtonAdd.addEventListener('click', function () {
+                console.log('Button Add');
+            });
+            const iNodeButtonAddText = document.createTextNode('+');
+            //========================== Button zusammensetzen ====================================
+            iNodeButtonAdd.appendChild(iNodeButtonAddText);
+            aNodeButtonAdd.appendChild(iNodeButtonAdd);
+            this.buttonNode.appendChild(aNodeButtonAdd);
         },
         //========================== render One ====================================
         renderOne: function (daten) {
-            //Alles löschen
+            //========================== Alles löschen ====================================
             while (this.anzeigeNode.firstChild) {
                 this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
             }
-            //Neue Liste hinzufügen
+            while (this.buttonNode.firstChild) {
+                this.buttonNode.removeChild(this.buttonNode.firstChild);
+            }
+            //========================== Personendetails ausgeben ====================================
             const divNode = document.createElement('div');
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
