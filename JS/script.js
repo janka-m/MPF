@@ -68,15 +68,17 @@
             this.anzeigeNode = document.getElementById('anzeige');
             this.buttonNode = document.getElementById('button');
         },
+        //========================== loeschen ====================================
+        loeschen: function (node) {
+            while (node.firstChild) {
+                node.removeChild(node.firstChild);
+            }
+        },
         //========================== render List ====================================
         renderList: function (daten) {
             //========================== Alles löschen ====================================
-            while (this.anzeigeNode.firstChild) {
-                this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
-            }
-            while (this.buttonNode.firstChild) {
-                this.buttonNode.removeChild(this.buttonNode.firstChild);
-            }
+            view.loeschen(this.anzeigeNode);
+            view.loeschen(this.buttonNode);
             //========================== Neue Liste erzeugen ====================================
             for (let index = 0; index < daten.length; index++) {
                 const name = daten[index].name;
@@ -84,10 +86,10 @@
                 const aNodeList = document.createElement('a');
                 aNodeList.setAttribute('href', '#!');
                 aNodeList.setAttribute('class', 'collection-item');
-                //========================== Eventhandler ====================================
+                //========================== Eventhandler Liste ====================================
                 aNodeList.addEventListener('click', function () {
                     presenter.listElementClick(index)
-                });              
+                });
                 const ListTextNode = document.createTextNode(name);
                 //========================== Liste zusammensetzen ====================================
                 aNodeList.appendChild(ListTextNode);
@@ -113,25 +115,21 @@
         //========================== render One ====================================
         renderOne: function (daten) {
             //========================== Alles löschen ====================================
-            while (this.anzeigeNode.firstChild) {
-                this.anzeigeNode.removeChild(this.anzeigeNode.firstChild);
-            }
-            while (this.buttonNode.firstChild) {
-                this.buttonNode.removeChild(this.buttonNode.firstChild);
-            }
+            view.loeschen(this.anzeigeNode);
+            view.loeschen(this.buttonNode);
             //========================== Personendetails ausgeben ====================================
-            const divNode = document.createElement('div');
+
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const internetTextNode = document.createTextNode(daten.internet);
 
 
-            divNode.appendChild(nameTextNode);
-            divNode.appendChild(adresseTextNode);
-            divNode.appendChild(telefonTextNode);
-            divNode.appendChild(internetTextNode);
-            this.anzeigeNode.appendChild(divNode);
+            this.anzeigeNode.appendChild(nameTextNode);
+            this.anzeigeNode.appendChild(adresseTextNode);
+            this.anzeigeNode.appendChild(telefonTextNode);
+            this.anzeigeNode.appendChild(internetTextNode);
+
 
         }
     }
