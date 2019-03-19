@@ -102,12 +102,12 @@
 
             const iNodeButtonAdd = document.createElement('i');
             iNodeButtonAdd.setAttribute('class', 'material-icons');
-            //========================== Eventlistener Button ====================================
+            //========================== Eventlistener Button Add ====================================
             iNodeButtonAdd.addEventListener('click', function () {
                 console.log('Button Add');
             });
             const iNodeButtonAddText = document.createTextNode('+');
-            //========================== Button zusammensetzen ====================================
+            //========================== Button Add zusammensetzen ====================================
             iNodeButtonAdd.appendChild(iNodeButtonAddText);
             aNodeButtonAdd.appendChild(iNodeButtonAdd);
             this.buttonNode.appendChild(aNodeButtonAdd);
@@ -124,13 +124,44 @@
             const telefonTextNode = document.createTextNode(daten.telefon);
             const internetTextNode = document.createTextNode(daten.internet);
 
-
             this.anzeigeNode.appendChild(nameTextNode);
             this.anzeigeNode.appendChild(adresseTextNode);
             this.anzeigeNode.appendChild(telefonTextNode);
             this.anzeigeNode.appendChild(internetTextNode);
 
+            //========================== Button Edit erzeugen ====================================
+            const aNodeButtonEdit = document.createElement('a');
+            aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
+            aNodeButtonEdit.setAttribute('id', 'edit');
 
+            const iNodeButtonEdit = document.createElement('i');
+            iNodeButtonEdit.setAttribute('class', 'material-icons');
+            //========================== Eventlistener Button Edit ====================================
+            iNodeButtonEdit.addEventListener('click', function () {
+                console.log('Button Edit');
+            });
+            const iNodeButtonEditText = document.createTextNode('edit');
+            //========================== Button Edit zusammensetzen ====================================
+            iNodeButtonEdit.appendChild(iNodeButtonEditText);
+            aNodeButtonEdit.appendChild(iNodeButtonEdit);
+            this.buttonNode.appendChild(aNodeButtonEdit);
+
+            //========================== Button Edit erzeugen ====================================
+            const aNodeButtonDel = document.createElement('a');
+            aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
+            aNodeButtonDel.setAttribute('id', 'del');
+
+            const iNodeButtonDel = document.createElement('i');
+            iNodeButtonDel.setAttribute('class', 'material-icons');
+            //========================== Eventlistener Button Del ====================================
+            iNodeButtonDel.addEventListener('click', function () {
+                console.log('Button Del');
+            });
+            const iNodeButtonDelText = document.createTextNode('del');
+            //========================== Button Del zusammensetzen ====================================
+            iNodeButtonDel.appendChild(iNodeButtonDelText);
+            aNodeButtonDel.appendChild(iNodeButtonDel);
+            this.buttonNode.appendChild(aNodeButtonDel);
         }
     }
     //========================== App ====================================
