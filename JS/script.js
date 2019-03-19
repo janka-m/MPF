@@ -62,7 +62,7 @@
     //========================== View ====================================
     const view = {
         anzeigeNode: null,
-        ausgabeNode: null,
+        buttonNode: null,
         //========================== init ====================================
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
@@ -119,21 +119,40 @@
             view.loeschen(this.buttonNode);
             //========================== Personendetails ausgeben ====================================
 
+            const ulNode = document.createElement('ul');
+            this.ulNode.setAttribute('class', 'collection with-header');
+            const liNodeName = document.getElementById('li');
+            this.liNodeName.setAttribute('collection-header');
+
+            const liNodeAdresse = document.getElementById('li');
+            this.liNodeAdresse.setAttribute('collection-item');
+
+            const liNodeTelefon = document.getElementById('li');
+            this.liNodeTelefon.setAttribute('collection-item');
+            
+            const liNodeInternet = document.getElementById('li');
+            this.liNodeInternet.setAttribute('collection-item');
+
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const internetTextNode = document.createTextNode(daten.internet);
 
-            this.anzeigeNode.appendChild(nameTextNode);
-            this.anzeigeNode.appendChild(adresseTextNode);
-            this.anzeigeNode.appendChild(telefonTextNode);
-            this.anzeigeNode.appendChild(internetTextNode);
+            this.liNodeName.appendChild(nameTextNode);
+            this.liNodeAdresse.appendChild(adresseTextNode);
+            this.liNodeTelefon.appendChild(telefonTextNode);
+            this.liNodeInternet.appendChild(internetTextNode);
+
+            this.ulNode.appendChild(liNodeName);
+            this.ulNode.appendChild(liNodeAdresse);
+            this.ulNode.appendChild(liNodeTelefon);
+            this.ulNode.appendChild(liNodeInternet);
+
 
             //========================== Button Edit erzeugen ====================================
             const aNodeButtonEdit = document.createElement('a');
             aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
             aNodeButtonEdit.setAttribute('id', 'edit');
-
             const iNodeButtonEdit = document.createElement('i');
             iNodeButtonEdit.setAttribute('class', 'material-icons');
             //========================== Eventlistener Button Edit ====================================
@@ -146,11 +165,10 @@
             aNodeButtonEdit.appendChild(iNodeButtonEdit);
             this.buttonNode.appendChild(aNodeButtonEdit);
 
-            //========================== Button Edit erzeugen ====================================
+            //========================== Button Del erzeugen ====================================
             const aNodeButtonDel = document.createElement('a');
             aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
             aNodeButtonDel.setAttribute('id', 'del');
-
             const iNodeButtonDel = document.createElement('i');
             iNodeButtonDel.setAttribute('class', 'material-icons');
             //========================== Eventlistener Button Del ====================================
