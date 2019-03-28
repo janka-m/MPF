@@ -118,36 +118,37 @@
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
             //========================== Personendetails ausgeben ====================================
-
             const ulNode = document.createElement('ul');
-            this.ulNode.setAttribute('class', 'collection with-header');
-            const liNodeName = document.getElementById('li');
-            this.liNodeName.setAttribute('collection-header');
+            ulNode.setAttribute('class', 'collection with-header');
 
-            const liNodeAdresse = document.getElementById('li');
-            this.liNodeAdresse.setAttribute('collection-item');
+            const liNodeName = document.createElement('li');
+            liNodeName.setAttribute('class', 'collection-header');
 
-            const liNodeTelefon = document.getElementById('li');
-            this.liNodeTelefon.setAttribute('collection-item');
-            
-            const liNodeInternet = document.getElementById('li');
-            this.liNodeInternet.setAttribute('collection-item');
+            const liNodeAdresse = document.createElement('li');
+            liNodeAdresse.setAttribute('class', 'collection-item');
+
+            const liNodeTelefon = document.createElement('li');
+            liNodeTelefon.setAttribute('class', 'collection-item');
+
+            const liNodeInternet = document.createElement('li');
+            liNodeInternet.setAttribute('class', 'collection-item');
 
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const internetTextNode = document.createTextNode(daten.internet);
 
-            this.liNodeName.appendChild(nameTextNode);
-            this.liNodeAdresse.appendChild(adresseTextNode);
-            this.liNodeTelefon.appendChild(telefonTextNode);
-            this.liNodeInternet.appendChild(internetTextNode);
+            liNodeName.appendChild(nameTextNode);
+            liNodeAdresse.appendChild(adresseTextNode);
+            liNodeTelefon.appendChild(telefonTextNode);
+            liNodeInternet.appendChild(internetTextNode);
 
-            this.ulNode.appendChild(liNodeName);
-            this.ulNode.appendChild(liNodeAdresse);
-            this.ulNode.appendChild(liNodeTelefon);
-            this.ulNode.appendChild(liNodeInternet);
+            ulNode.appendChild(liNodeName);
+            ulNode.appendChild(liNodeAdresse);
+            ulNode.appendChild(liNodeTelefon);
+            ulNode.appendChild(liNodeInternet);
 
+            this.anzeigeNode.appendChild(ulNode);
 
             //========================== Button Edit erzeugen ====================================
             const aNodeButtonEdit = document.createElement('a');
