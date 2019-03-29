@@ -76,48 +76,47 @@
         },
         //========================== render List ====================================
         renderList: function (daten) {
-            //========================== Alles löschen ====================================
+            // Gesamte View löschen 
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
-            //========================== Neue Liste erzeugen ====================================
+            // Neue Liste erzeugen 
             for (let index = 0; index < daten.length; index++) {
                 const name = daten[index].name;
 
                 const aNodeList = document.createElement('a');
                 aNodeList.setAttribute('href', '#!');
                 aNodeList.setAttribute('class', 'collection-item');
-                //========================== Eventhandler Liste ====================================
+                // Eventhandler Liste
                 aNodeList.addEventListener('click', function () {
                     presenter.listElementClick(index)
                 });
                 const ListTextNode = document.createTextNode(name);
-                //========================== Liste zusammensetzen ====================================
+                // Liste zusammensetzen
                 aNodeList.appendChild(ListTextNode);
                 this.anzeigeNode.appendChild(aNodeList);
             }
-            //========================== Button Add erzeugen ====================================
+            // Add Button erzeugen
             const aNodeButtonAdd = document.createElement('a');
             aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
             aNodeButtonAdd.setAttribute('id', 'add');
-
             const iNodeButtonAdd = document.createElement('i');
             iNodeButtonAdd.setAttribute('class', 'material-icons');
-            //========================== Eventlistener Button Add ====================================
+            const iNodeButtonAddText = document.createTextNode('+');
+            // Eventlistener Add Button
             iNodeButtonAdd.addEventListener('click', function () {
                 console.log('Button Add');
             });
-            const iNodeButtonAddText = document.createTextNode('+');
-            //========================== Button Add zusammensetzen ====================================
+            // Add Button zusammensetzen
             iNodeButtonAdd.appendChild(iNodeButtonAddText);
             aNodeButtonAdd.appendChild(iNodeButtonAdd);
             this.buttonNode.appendChild(aNodeButtonAdd);
         },
         //========================== render One ====================================
         renderOne: function (daten) {
-            //========================== Alles löschen ====================================
+            // gesamte View löschen
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
-            //========================== Personendetails ausgeben ====================================
+            // Personendetails ausgeben ====================================
             const ulNode = document.createElement('ul');
             ulNode.setAttribute('class', 'collection with-header');
 
@@ -150,34 +149,34 @@
 
             this.anzeigeNode.appendChild(ulNode);
 
-            //========================== Button Edit erzeugen ====================================
+            // Edit Button erzeugen ====================================
             const aNodeButtonEdit = document.createElement('a');
             aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
             aNodeButtonEdit.setAttribute('id', 'edit');
             const iNodeButtonEdit = document.createElement('i');
             iNodeButtonEdit.setAttribute('class', 'material-icons');
-            //========================== Eventlistener Button Edit ====================================
+            const iNodeButtonEditText = document.createTextNode('edit');
+            // Eventlistener Edit Button
             iNodeButtonEdit.addEventListener('click', function () {
                 console.log('Button Edit');
             });
-            const iNodeButtonEditText = document.createTextNode('edit');
-            //========================== Button Edit zusammensetzen ====================================
+            // Edit Button zusammensetzen
             iNodeButtonEdit.appendChild(iNodeButtonEditText);
             aNodeButtonEdit.appendChild(iNodeButtonEdit);
             this.buttonNode.appendChild(aNodeButtonEdit);
 
-            //========================== Button Del erzeugen ====================================
+            // Del Button erzeugen
             const aNodeButtonDel = document.createElement('a');
             aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
             aNodeButtonDel.setAttribute('id', 'del');
             const iNodeButtonDel = document.createElement('i');
             iNodeButtonDel.setAttribute('class', 'material-icons');
-            //========================== Eventlistener Button Del ====================================
+            const iNodeButtonDelText = document.createTextNode('del');
+            // Eventlistener Del Button
             iNodeButtonDel.addEventListener('click', function () {
                 console.log('Button Del');
             });
-            const iNodeButtonDelText = document.createTextNode('del');
-            //========================== Button Del zusammensetzen ====================================
+            // Del Button Del zusammensetzen
             iNodeButtonDel.appendChild(iNodeButtonDelText);
             aNodeButtonDel.appendChild(iNodeButtonDel);
             this.buttonNode.appendChild(aNodeButtonDel);
