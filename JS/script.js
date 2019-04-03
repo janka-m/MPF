@@ -18,13 +18,13 @@
                 name: "Metzgerwirt",
                 adresse: "Poststraße 10, 86857 Hurlach",
                 telefon: "08248 7676",
-                internet: "www.beim-metzgerwirt.de"
+                internet: "https://www.beim-metzgerwirt.de"
             },
             {
                 name: "Martha Pizzarei",
                 adresse: "Hauptstraße 11, 82256 Fürstenfeldbruck",
                 telefon: "08141 3566747",
-                internet: "martha-pizzarei.de"
+                internet: "https://www.martha-pizzarei.de"
             },
             {
                 name: "Gasthof Alter Wirt",
@@ -56,6 +56,11 @@
         listElementClick: function (index) {
             let daten = model.readOne(index);
             view.renderOne(daten);
+        },
+        //========================== backButtonClick ===============================
+        backButtonClick:function(){
+            let daten = model.readAll();
+            view.renderList(daten);
         }
     };
 
@@ -85,7 +90,7 @@
 
                 const aNodeList = document.createElement('a');
                 aNodeList.setAttribute('href', '#!');
-                aNodeList.setAttribute('class', 'collection-item');
+                aNodeList.setAttribute('class', 'collection-item  grey lighten-4');
                 // Eventhandler Liste
                 aNodeList.addEventListener('click', function () {
                     presenter.listElementClick(index)
@@ -116,31 +121,38 @@
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
-            // Personendetails ausgeben ====================================
+            // Personendetails ausgeben
             const ulNode = document.createElement('ul');
             ulNode.setAttribute('class', 'collection with-header');
+            ulNode.setAttribute('style', 'margin:0');
 
             const liNodeName = document.createElement('li');
-            liNodeName.setAttribute('class', 'collection-header');
+            liNodeName.setAttribute('class', 'collection-header grey lighten-2');
+            liNodeName.setAttribute('style', 'font-weight:bold;back');
 
             const liNodeAdresse = document.createElement('li');
-            liNodeAdresse.setAttribute('class', 'collection-item');
+            liNodeAdresse.setAttribute('class', 'collection-item grey lighten-4');
 
             const liNodeTelefon = document.createElement('li');
-            liNodeTelefon.setAttribute('class', 'collection-item');
+            liNodeTelefon.setAttribute('class', 'collection-item grey lighten-4');
 
             const liNodeInternet = document.createElement('li');
-            liNodeInternet.setAttribute('class', 'collection-item');
+            liNodeInternet.setAttribute('class', 'collection-item grey lighten-4');
+
+            const aNodeInternet = document.createElement('a');
+            aNodeInternet.setAttribute('href',daten.internet);
 
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const internetTextNode = document.createTextNode(daten.internet);
 
+            aNodeInternet.appendChild(internetTextNode);
+
             liNodeName.appendChild(nameTextNode);
             liNodeAdresse.appendChild(adresseTextNode);
             liNodeTelefon.appendChild(telefonTextNode);
-            liNodeInternet.appendChild(internetTextNode);
+            liNodeInternet.appendChild(aNodeInternet);
 
             ulNode.appendChild(liNodeName);
             ulNode.appendChild(liNodeAdresse);
@@ -149,7 +161,7 @@
 
             this.anzeigeNode.appendChild(ulNode);
 
-            // Edit Button erzeugen ====================================
+            // Edit Button erzeugen
             const aNodeButtonEdit = document.createElement('a');
             aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
             aNodeButtonEdit.setAttribute('id', 'edit');
@@ -180,6 +192,23 @@
             iNodeButtonDel.appendChild(iNodeButtonDelText);
             aNodeButtonDel.appendChild(iNodeButtonDel);
             this.buttonNode.appendChild(aNodeButtonDel);
+
+            // Back Button erzeugen
+            const aNodeButtonBack = document.createElement('a');
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey lighten-4')
+            aNodeButtonBack.setAttribute('id', 'back');
+            aNodeButtonBack.setAttribute('style', 'float:left');            
+            const iNodeButtonBack = document.createElement('i');
+            iNodeButtonBack.setAttribute('class', 'material-icons');
+            const iNodeButtonBackText = document.createTextNode('back');
+            // Eventlistener Back Button
+            iNodeButtonBack.addEventListener('click', function () {
+                presenter.backButtonClick();
+            });
+            // Back Button Del zusammensetzen
+            iNodeButtonBack.appendChild(iNodeButtonBackText);
+            aNodeButtonBack.appendChild(iNodeButtonBack);
+            this.buttonNode.appendChild(aNodeButtonBack);
         }
     }
     //========================== App ====================================
