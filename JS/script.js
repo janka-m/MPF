@@ -1,6 +1,7 @@
 (function () {
     'use strict';
     //======================================== Service Worker ========================================
+    //------------------------------ serviceWorker.regServiceWorker ------------------------------
     const regServiceWorker = function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -33,11 +34,11 @@
                 internet: ""
             }
         ],
-        //------------------------------ readAll ------------------------------
+        //------------------------------ model.readAll ------------------------------
         readAll: function () {
             return this.datenArray;
         },
-        //------------------------------ readOne ------------------------------
+        //------------------------------ model.readOne ------------------------------
         readOne: function (index) {
             return this.datenArray[index];
         }
@@ -45,19 +46,19 @@
 
     //======================================== Presenter ========================================
     const presenter = {
-        //------------------------------ init ------------------------------
+        //------------------------------ presenter.init ------------------------------
         init: function () {
             // Daten (Restaurants) ausgeben
             let daten = model.readAll();
             view.init();
             view.renderList(daten);
         },
-        //------------------------------ listElementClick ------------------------------
+        //------------------------------ presenter.listElementClick ------------------------------
         listElementClick: function (index) {
             let daten = model.readOne(index);
             view.renderOne(daten);
         },
-        //------------------------------ backButtonClick ------------------------------
+        //------------------------------ presenter.backButtonClick ------------------------------
         backButtonClick: function () {
             let daten = model.readAll();
             view.renderList(daten);
@@ -68,18 +69,18 @@
     const view = {
         anzeigeNode: null,
         buttonNode: null,
-        //------------------------------ init ------------------------------
+        //------------------------------ view.init ------------------------------
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
             this.buttonNode = document.getElementById('button');
         },
-        //------------------------------ loeschen ------------------------------
+        //------------------------------ view.loeschen ------------------------------
         loeschen: function (node) {
             while (node.firstChild) {
                 node.removeChild(node.firstChild);
             }
         },
-        //------------------------------ render List ------------------------------
+        //------------------------------ view.renderList ------------------------------
         renderList: function (daten) {
             // Gesamte View löschen 
             view.loeschen(this.anzeigeNode);
@@ -116,7 +117,7 @@
             aNodeButtonAdd.appendChild(iNodeButtonAdd);
             this.buttonNode.appendChild(aNodeButtonAdd);
         },
-        //------------------------------ render One ------------------------------
+        //------------------------------ view.renderOne ------------------------------
         renderOne: function (daten) {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
