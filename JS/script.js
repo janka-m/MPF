@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    //========================== Service Worker =========================
+    //======================================== Service Worker ========================================
     const regServiceWorker = function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
@@ -12,7 +12,7 @@
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
     };
-    //========================== Model ==================================
+    //======================================== Model ========================================
     const model = {
         datenArray: [{
                 name: "Metzgerwirt",
@@ -33,53 +33,53 @@
                 internet: ""
             }
         ],
-        //========================== readAll ===============================
+        //------------------------------ readAll ------------------------------
         readAll: function () {
             return this.datenArray;
         },
-        //========================== readOne ===============================
+        //------------------------------ readOne ------------------------------
         readOne: function (index) {
             return this.datenArray[index];
         }
     };
 
-    //========================== Presenter ===============================
+    //======================================== Presenter ========================================
     const presenter = {
-        //========================== init ===============================
+        //------------------------------ init ------------------------------
         init: function () {
             // Daten (Restaurants) ausgeben
             let daten = model.readAll();
             view.init();
             view.renderList(daten);
         },
-        //========================== listElementClick ===============================
+        //------------------------------ listElementClick ------------------------------
         listElementClick: function (index) {
             let daten = model.readOne(index);
             view.renderOne(daten);
         },
-        //========================== backButtonClick ===============================
-        backButtonClick:function(){
+        //------------------------------ backButtonClick ------------------------------
+        backButtonClick: function () {
             let daten = model.readAll();
             view.renderList(daten);
         }
     };
 
-    //========================== View ====================================
+    //======================================== View ========================================
     const view = {
         anzeigeNode: null,
         buttonNode: null,
-        //========================== init ====================================
+        //------------------------------ init ------------------------------
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
             this.buttonNode = document.getElementById('button');
         },
-        //========================== loeschen ====================================
+        //------------------------------ loeschen ------------------------------
         loeschen: function (node) {
             while (node.firstChild) {
                 node.removeChild(node.firstChild);
             }
         },
-        //========================== render List ====================================
+        //------------------------------ render List ------------------------------
         renderList: function (daten) {
             // Gesamte View löschen 
             view.loeschen(this.anzeigeNode);
@@ -116,7 +116,7 @@
             aNodeButtonAdd.appendChild(iNodeButtonAdd);
             this.buttonNode.appendChild(aNodeButtonAdd);
         },
-        //========================== render One ====================================
+        //------------------------------ render One ------------------------------
         renderOne: function (daten) {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
@@ -140,7 +140,7 @@
             liNodeInternet.setAttribute('class', 'collection-item grey lighten-4');
 
             const aNodeInternet = document.createElement('a');
-            aNodeInternet.setAttribute('href',daten.internet);
+            aNodeInternet.setAttribute('href', daten.internet);
 
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
@@ -197,7 +197,7 @@
             const aNodeButtonBack = document.createElement('a');
             aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey lighten-4')
             aNodeButtonBack.setAttribute('id', 'back');
-            aNodeButtonBack.setAttribute('style', 'float:left');            
+            aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
             iNodeButtonBack.setAttribute('class', 'material-icons');
             const iNodeButtonBackText = document.createTextNode('back');
