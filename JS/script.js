@@ -63,7 +63,11 @@
             let daten = model.readAll();
             view.renderList(daten);
         },
-        //------------------------------ presenter.neuButtonClick ------------------------------
+        //------------------------------ presenter.addButtonClick ------------------------------
+        neuButtonClick: function () {
+            view.renderNew();
+        },
+        //------------------------------ presenter.recButtonClick ------------------------------
         neuButtonClick: function () {
             view.renderNew();
         }
@@ -239,17 +243,17 @@
             divNodeRowName.setAttribute('class', 'row');
             const divNodeInputName = document.createElement('div');
             divNodeInputName.setAttribute('class', 'input-field col s6');
-            const inputNodeName = document.createElement('input');
-            inputNodeName.setAttribute('id', 'inputName');
-            inputNodeName.setAttribute('type', 'text');
-            inputNodeName.setAttribute('class', 'validate');
+            const inputName = document.createElement('input');
+            inputName.setAttribute('id', 'inputName');
+            inputName.setAttribute('type', 'text');
+            inputName.setAttribute('class', 'validate');
             const inputLabelName = document.createElement('label');
             inputLabelName.setAttribute('for', 'inputName');
             inputLabelName.setAttribute('class', 'active');
             const textNodeName = document.createTextNode('Name');
             //Name: Elemente zusammenzetzen
             inputLabelName.appendChild(textNodeName);
-            divNodeInputName.appendChild(inputNodeName);
+            divNodeInputName.appendChild(inputName);
             divNodeInputName.appendChild(inputLabelName);
             divNodeRowName.appendChild(divNodeInputName);
 
@@ -258,17 +262,17 @@
             divNodeRowAdresse.setAttribute('class', 'row');
             const divNodeInputAdresse = document.createElement('div');
             divNodeInputAdresse.setAttribute('class', 'input-field col s6');
-            const inputNodeAdresse = document.createElement('input');
-            inputNodeAdresse.setAttribute('id', 'inputAdresse');
-            inputNodeAdresse.setAttribute('type', 'text');
-            inputNodeAdresse.setAttribute('class', 'validate');
+            const inputAdresse = document.createElement('input');
+            inputAdresse.setAttribute('id', 'inputAdresse');
+            inputAdresse.setAttribute('type', 'text');
+            inputAdresse.setAttribute('class', 'validate');
             const inputLabelAdresse = document.createElement('label');
             inputLabelAdresse.setAttribute('for', 'inputAdresse');
             inputLabelAdresse.setAttribute('class', 'active');
             const textNodeAdresse = document.createTextNode('Adresse');
             //Adresse: Elemente zusammenzetzen
             inputLabelAdresse.appendChild(textNodeAdresse);
-            divNodeInputAdresse.appendChild(inputNodeAdresse);
+            divNodeInputAdresse.appendChild(inputAdresse);
             divNodeInputAdresse.appendChild(inputLabelAdresse);
             divNodeRowAdresse.appendChild(divNodeInputAdresse);
 
@@ -277,17 +281,17 @@
             divNodeRowTelefon.setAttribute('class', 'row');
             const divNodeInputTelefon = document.createElement('div');
             divNodeInputTelefon.setAttribute('class', 'input-field col s6');
-            const inputNodeTelefon = document.createElement('input');
-            inputNodeTelefon.setAttribute('id', 'inputTelefon');
-            inputNodeTelefon.setAttribute('type', 'text');
-            inputNodeTelefon.setAttribute('class', 'validate');
+            const inputTelefon = document.createElement('input');
+            inputTelefon.setAttribute('id', 'inputTelefon');
+            inputTelefon.setAttribute('type', 'text');
+            inputTelefon.setAttribute('class', 'validate');
             const inputLabelTelefon = document.createElement('label');
             inputLabelTelefon.setAttribute('for', 'inputTelefon');
             inputLabelTelefon.setAttribute('class', 'active');
             const textNodeTelefon = document.createTextNode('Telefon');
             //Telefon: Elemente zusammenzetzen
             inputLabelTelefon.appendChild(textNodeTelefon);
-            divNodeInputTelefon.appendChild(inputNodeTelefon);
+            divNodeInputTelefon.appendChild(inputTelefon);
             divNodeInputTelefon.appendChild(inputLabelTelefon);
             divNodeRowTelefon.appendChild(divNodeInputTelefon);
 
@@ -296,17 +300,17 @@
             divNodeRowInternet.setAttribute('class', 'row');
             const divNodeInputInternet = document.createElement('div');
             divNodeInputInternet.setAttribute('class', 'input-field col s6');
-            const inputNodeInternet = document.createElement('input');
-            inputNodeInternet.setAttribute('id', 'inputInternet');
-            inputNodeInternet.setAttribute('type', 'text');
-            inputNodeInternet.setAttribute('class', 'validate');
+            const inputInternet = document.createElement('input');
+            inputInternet.setAttribute('id', 'inputInternet');
+            inputInternet.setAttribute('type', 'text');
+            inputInternet.setAttribute('class', 'validate');
             const inputLabelInternet = document.createElement('label');
             inputLabelInternet.setAttribute('for', 'inputInternet');
             inputLabelInternet.setAttribute('class', 'active');
             const textNodeInternet = document.createTextNode('Internet');
             //Internet: Elemente zusammenzetzen
             inputLabelInternet.appendChild(textNodeInternet);
-            divNodeInputInternet.appendChild(inputNodeInternet);
+            divNodeInputInternet.appendChild(inputInternet);
             divNodeInputInternet.appendChild(inputLabelInternet);
             divNodeRowInternet.appendChild(divNodeInputInternet);
 
@@ -352,7 +356,7 @@
             aNodeButtonBack.appendChild(iNodeButtonBack);
             this.buttonNode.appendChild(aNodeButtonBack);
         }
-    }
+    };
     //========================== App ====================================
     presenter.init();
 })();
