@@ -34,6 +34,10 @@
                 internet: ""
             }
         ],
+        //------------------------------ model.Create ------------------------------
+        create: function(eintrag){
+            this.datenArray.push(eintrag);
+        },
         //------------------------------ model.readAll ------------------------------
         readAll: function () {
             return this.datenArray;
@@ -58,19 +62,38 @@
             let daten = model.readOne(index);
             view.renderOne(daten);
         },
-        //------------------------------ presenter.backButtonClick ------------------------------
-        backButtonClick: function () {
+        //------------------------------ presenter.btnBackClick ------------------------------
+        btnBackClick: function () {
             let daten = model.readAll();
             view.renderList(daten);
         },
-        //------------------------------ presenter.addButtonClick ------------------------------
-        addButtonClick: function () {
+        //------------------------------ presenter.btnAddClick ------------------------------
+        btnAddClick: function () {
             view.renderNew();
         },
-        //------------------------------ presenter.addNeuButtonClick ------------------------------
-        addNeuButtonClick: function () {
+        //------------------------------ presenter.btnAddNeuClick ------------------------------
+        btnAddNeuClick: function () {
+            // Daten aus dem Formular holen
+            let name = view.getName();
+            let adresse = view.getAdresse();
+            let telefon = view.getTelefon();
+            let internet = view.getInternet();
+
+            // Neue Daten der Liste hinzufügen
+            model.create({
+                'name':name,
+                'adresse':adresse,
+                'telefon':telefon,
+                'internet':internet
+            });
             
+            // Daten erneut holen
+            let daten = model.readAll();
+
+            // Liste erneut anzeigen mit neuen Daten;
+            view.renderList(daten);
         }
+
     };
 
     //======================================== View ========================================
@@ -123,7 +146,7 @@
             const iNodeButtonAddText = document.createTextNode('+');
             // Eventlistener Add Button
             iNodeButtonAdd.addEventListener('click', function () {
-                presenter.addButtonClick();
+                presenter.btnAddClick();
             });
             // Add Button zusammensetzen
             iNodeButtonAdd.appendChild(iNodeButtonAddText);
@@ -218,13 +241,14 @@
             const iNodeButtonBackText = document.createTextNode('back');
             // Eventlistener Back Button
             iNodeButtonBack.addEventListener('click', function () {
-                presenter.backButtonClick();
+                presenter.btnBackClick();
             });
             // Back Button Del zusammensetzen
             iNodeButtonBack.appendChild(iNodeButtonBackText);
             aNodeButtonBack.appendChild(iNodeButtonBack);
             this.buttonNode.appendChild(aNodeButtonBack);
         },
+        //------------------------------ view.renderNew ------------------------------
         renderNew: function () {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
@@ -236,24 +260,23 @@
             // FormNode erzeugen:            
             const formNode = document.createElement('form');
             formNode.setAttribute('class', 'col s12 offset-m3');
-            
 
             // Name: Elemente erzeugen
             const divNodeRowName = document.createElement('div');
             divNodeRowName.setAttribute('class', 'row');
             const divNodeInputName = document.createElement('div');
             divNodeInputName.setAttribute('class', 'input-field col s6');
-            const inputName = document.createElement('input');
-            inputName.setAttribute('id', 'inputName');
-            inputName.setAttribute('type', 'text');
-            inputName.setAttribute('class', 'validate');
+            this.inputName = document.createElement('input');
+            this.inputName.setAttribute('id', 'inputName');
+            this.inputName.setAttribute('type', 'text');
+            this.inputName.setAttribute('class', 'validate');
             const inputLabelName = document.createElement('label');
             inputLabelName.setAttribute('for', 'inputName');
             inputLabelName.setAttribute('class', 'active');
             const textNodeName = document.createTextNode('Name');
-            //Name: Elemente zusammenzetzen
+            //Name: Elemente zusammensetzen
             inputLabelName.appendChild(textNodeName);
-            divNodeInputName.appendChild(inputName);
+            divNodeInputName.appendChild(this.inputName);
             divNodeInputName.appendChild(inputLabelName);
             divNodeRowName.appendChild(divNodeInputName);
 
@@ -262,17 +285,18 @@
             divNodeRowAdresse.setAttribute('class', 'row');
             const divNodeInputAdresse = document.createElement('div');
             divNodeInputAdresse.setAttribute('class', 'input-field col s6');
-            const inputAdresse = document.createElement('input');
-            inputAdresse.setAttribute('id', 'inputAdresse');
-            inputAdresse.setAttribute('type', 'text');
-            inputAdresse.setAttribute('class', 'validate');
+            this.inputAdresse = document.createElement('input');
+            this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
+            this.inputAdresse.setAttribute('id', 'inputAdresse');
+            this.inputAdresse.setAttribute('type', 'text');
+            this.inputAdresse.setAttribute('class', 'validate');
             const inputLabelAdresse = document.createElement('label');
             inputLabelAdresse.setAttribute('for', 'inputAdresse');
             inputLabelAdresse.setAttribute('class', 'active');
             const textNodeAdresse = document.createTextNode('Adresse');
-            //Adresse: Elemente zusammenzetzen
+            //Adresse: Elemente zusammensetzen
             inputLabelAdresse.appendChild(textNodeAdresse);
-            divNodeInputAdresse.appendChild(inputAdresse);
+            divNodeInputAdresse.appendChild(this.inputAdresse);
             divNodeInputAdresse.appendChild(inputLabelAdresse);
             divNodeRowAdresse.appendChild(divNodeInputAdresse);
 
@@ -281,17 +305,18 @@
             divNodeRowTelefon.setAttribute('class', 'row');
             const divNodeInputTelefon = document.createElement('div');
             divNodeInputTelefon.setAttribute('class', 'input-field col s6');
-            const inputTelefon = document.createElement('input');
-            inputTelefon.setAttribute('id', 'inputTelefon');
-            inputTelefon.setAttribute('type', 'text');
-            inputTelefon.setAttribute('class', 'validate');
+            this.inputTelefon = document.createElement('input');
+            this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
+            this.inputTelefon.setAttribute('id', 'inputTelefon');
+            this.inputTelefon.setAttribute('type', 'text');
+            this.inputTelefon.setAttribute('class', 'validate');
             const inputLabelTelefon = document.createElement('label');
             inputLabelTelefon.setAttribute('for', 'inputTelefon');
             inputLabelTelefon.setAttribute('class', 'active');
             const textNodeTelefon = document.createTextNode('Telefon');
-            //Telefon: Elemente zusammenzetzen
+            //Telefon: Elemente zusammensetzen
             inputLabelTelefon.appendChild(textNodeTelefon);
-            divNodeInputTelefon.appendChild(inputTelefon);
+            divNodeInputTelefon.appendChild(this.inputTelefon);
             divNodeInputTelefon.appendChild(inputLabelTelefon);
             divNodeRowTelefon.appendChild(divNodeInputTelefon);
 
@@ -300,17 +325,18 @@
             divNodeRowInternet.setAttribute('class', 'row');
             const divNodeInputInternet = document.createElement('div');
             divNodeInputInternet.setAttribute('class', 'input-field col s6');
-            const inputInternet = document.createElement('input');
-            inputInternet.setAttribute('id', 'inputInternet');
-            inputInternet.setAttribute('type', 'text');
-            inputInternet.setAttribute('class', 'validate');
+            this.inputInternet = document.createElement('input');
+            this.inputInternet.setAttribute('placeholder', 'https://www.google.de')
+            this.inputInternet.setAttribute('id', 'inputInternet');
+            this.inputInternet.setAttribute('type', 'text');
+            this.inputInternet.setAttribute('class', 'validate');
             const inputLabelInternet = document.createElement('label');
             inputLabelInternet.setAttribute('for', 'inputInternet');
             inputLabelInternet.setAttribute('class', 'active');
             const textNodeInternet = document.createTextNode('Internet');
-            //Internet: Elemente zusammenzetzen
+            //Internet: Elemente zusammensetzen
             inputLabelInternet.appendChild(textNodeInternet);
-            divNodeInputInternet.appendChild(inputInternet);
+            divNodeInputInternet.appendChild(this.inputInternet);
             divNodeInputInternet.appendChild(inputLabelInternet);
             divNodeRowInternet.appendChild(divNodeInputInternet);
 
@@ -323,6 +349,9 @@
             // FormNode der Anzeige hinzufügen
             this.anzeigeNode.appendChild(formNode);
 
+            // Focus auf InputName
+            inputName.focus();
+
             // SpeichernNeu Button erzeugen
             const aNodeButtonSpeichernNeu = document.createElement('a');
             aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
@@ -332,7 +361,7 @@
             const iNodeButtonSpeichernNeuText = document.createTextNode('+');
             // Eventlistener Edit Button
             iNodeButtonSpeichernNeu.addEventListener('click', function () {
-                console.log('Button SpeichernNeu');
+                presenter.btnAddNeuClick();
             });
             // Edit Button zusammensetzen
             iNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeuText);
@@ -349,12 +378,36 @@
             const iNodeButtonBackText = document.createTextNode('back');
             // Eventlistener Back Button
             iNodeButtonBack.addEventListener('click', function () {
-                presenter.backButtonClick();
+                presenter.btnBackClick();
             });
             // Back Button Del zusammensetzen
             iNodeButtonBack.appendChild(iNodeButtonBackText);
             aNodeButtonBack.appendChild(iNodeButtonBack);
             this.buttonNode.appendChild(aNodeButtonBack);
+        },
+        //------------------------------ view.getName ------------------------------
+        inputName: null,
+        getName: function () {
+            let name = this.inputName.value;
+            return name;
+        },
+        //------------------------------ view.getAdresse ------------------------------
+        inputAdresse: null,
+        getAdresse: function () {
+            let adresse = this.inputAdresse.value;
+            return adresse;
+        },
+        //------------------------------ view.getTelefon ------------------------------
+        inputTelefon: null,
+        getTelefon: function () {
+            let telefon = this.inputTelefon.value;
+            return telefon;
+        },
+        //------------------------------ view.getInternet ------------------------------
+        inputInternet: null,
+        getInternet: function () {
+            let internet = this.inputInternet.value;
+            return internet;
         }
     };
     //========================== App ====================================
