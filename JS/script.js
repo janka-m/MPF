@@ -64,12 +64,12 @@
             view.renderList(daten);
         },
         //------------------------------ presenter.addButtonClick ------------------------------
-        neuButtonClick: function () {
+        addButtonClick: function () {
             view.renderNew();
         },
-        //------------------------------ presenter.recButtonClick ------------------------------
-        neuButtonClick: function () {
-            view.renderNew();
+        //------------------------------ presenter.addNeuButtonClick ------------------------------
+        addNeuButtonClick: function () {
+            
         }
     };
 
@@ -123,7 +123,7 @@
             const iNodeButtonAddText = document.createTextNode('+');
             // Eventlistener Add Button
             iNodeButtonAdd.addEventListener('click', function () {
-                presenter.neuButtonClick();
+                presenter.addButtonClick();
             });
             // Add Button zusammensetzen
             iNodeButtonAdd.appendChild(iNodeButtonAddText);
@@ -329,7 +329,7 @@
             aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
             const iNodeButtonSpeichernNeu = document.createElement('i');
             iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
-            const iNodeButtonSpeichernNeuText = document.createTextNode('rec');
+            const iNodeButtonSpeichernNeuText = document.createTextNode('+');
             // Eventlistener Edit Button
             iNodeButtonSpeichernNeu.addEventListener('click', function () {
                 console.log('Button SpeichernNeu');
