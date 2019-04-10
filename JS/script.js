@@ -259,7 +259,7 @@
 
             // FormNode erzeugen:            
             const formNode = document.createElement('form');
-            formNode.setAttribute('class', 'col s12 offset-m3');
+            formNode.setAttribute('class', 'col s12');
 
             // Name: Elemente erzeugen
             const divNodeRowName = document.createElement('div');
