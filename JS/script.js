@@ -35,7 +35,7 @@
             }
         ],
         //------------------------------ model.Create ------------------------------
-        create: function(eintrag){
+        create: function (eintrag) {
             this.datenArray.push(eintrag);
         },
         //------------------------------ model.readAll ------------------------------
@@ -81,12 +81,12 @@
 
             // Neue Daten der Liste hinzufügen
             model.create({
-                'name':name,
-                'adresse':adresse,
-                'telefon':telefon,
-                'internet':internet
+                'name': name,
+                'adresse': adresse,
+                'telefon': telefon,
+                'internet': internet
             });
-            
+
             // Daten erneut holen
             let daten = model.readAll();
 
@@ -265,7 +265,7 @@
             const divNodeRowName = document.createElement('div');
             divNodeRowName.setAttribute('class', 'row');
             const divNodeInputName = document.createElement('div');
-            divNodeInputName.setAttribute('class', 'input-field col s6');
+            divNodeInputName.setAttribute('class', 'input-field col s12');
             this.inputName = document.createElement('input');
             this.inputName.setAttribute('id', 'inputName');
             this.inputName.setAttribute('type', 'text');
@@ -284,7 +284,7 @@
             const divNodeRowAdresse = document.createElement('div');
             divNodeRowAdresse.setAttribute('class', 'row');
             const divNodeInputAdresse = document.createElement('div');
-            divNodeInputAdresse.setAttribute('class', 'input-field col s6');
+            divNodeInputAdresse.setAttribute('class', 'input-field col s12');
             this.inputAdresse = document.createElement('input');
             this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
             this.inputAdresse.setAttribute('id', 'inputAdresse');
@@ -304,7 +304,7 @@
             const divNodeRowTelefon = document.createElement('div');
             divNodeRowTelefon.setAttribute('class', 'row');
             const divNodeInputTelefon = document.createElement('div');
-            divNodeInputTelefon.setAttribute('class', 'input-field col s6');
+            divNodeInputTelefon.setAttribute('class', 'input-field col s12');
             this.inputTelefon = document.createElement('input');
             this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
             this.inputTelefon.setAttribute('id', 'inputTelefon');
@@ -324,7 +324,7 @@
             const divNodeRowInternet = document.createElement('div');
             divNodeRowInternet.setAttribute('class', 'row');
             const divNodeInputInternet = document.createElement('div');
-            divNodeInputInternet.setAttribute('class', 'input-field col s6');
+            divNodeInputInternet.setAttribute('class', 'input-field col s12');
             this.inputInternet = document.createElement('input');
             this.inputInternet.setAttribute('placeholder', 'https://www.google.de')
             this.inputInternet.setAttribute('id', 'inputInternet');
