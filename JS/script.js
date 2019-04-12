@@ -19,19 +19,19 @@
                 name: "Metzgerwirt",
                 adresse: "Poststraße 10, 86857 Hurlach",
                 telefon: "08248 7676",
-                internet: "https://www.beim-metzgerwirt.de"
+                url: "https://www.beim-metzgerwirt.de"
             },
             {
                 name: "Martha Pizzarei",
                 adresse: "Hauptstraße 11, 82256 Fürstenfeldbruck",
                 telefon: "08141 3566747",
-                internet: "https://www.martha-pizzarei.de"
+                url: "https://www.martha-pizzarei.de"
             },
             {
                 name: "Gasthof Alter Wirt",
                 adresse: "Moorenweiser Straße 5, 82269 Geltendorf",
                 telefon: "08193 7454",
-                internet: ""
+                url: ""
             }
         ],
         //------------------------------ model.Create ------------------------------
@@ -77,14 +77,14 @@
             let name = view.getName();
             let adresse = view.getAdresse();
             let telefon = view.getTelefon();
-            let internet = view.getInternet();
+            let url = view.getURL();
 
             // Neue Daten der Liste hinzufügen
             model.create({
                 'name': name,
                 'adresse': adresse,
                 'telefon': telefon,
-                'internet': internet
+                'url': url
             });
 
             // Daten erneut holen
@@ -174,28 +174,28 @@
             const liNodeTelefon = document.createElement('li');
             liNodeTelefon.setAttribute('class', 'collection-item grey lighten-4');
 
-            const liNodeInternet = document.createElement('li');
-            liNodeInternet.setAttribute('class', 'collection-item grey lighten-4');
+            const liNodeURL = document.createElement('li');
+            liNodeURL.setAttribute('class', 'collection-item grey lighten-4');
 
-            const aNodeInternet = document.createElement('a');
-            aNodeInternet.setAttribute('href', daten.internet);
+            const aNodeURL = document.createElement('a');
+            aNodeURL.setAttribute('href', daten.url);
 
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
-            const internetTextNode = document.createTextNode(daten.internet);
+            const urlTextNode = document.createTextNode(daten.url);
 
             liNodeName.appendChild(nameTextNode);
             liNodeAdresse.appendChild(adresseTextNode);
             liNodeTelefon.appendChild(telefonTextNode);
-            liNodeInternet.appendChild(internetTextNode);
+            liNodeURL.appendChild(urlTextNode);
 
-            aNodeInternet.appendChild(liNodeInternet);
+            aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
             ulNode.appendChild(liNodeAdresse);
             ulNode.appendChild(liNodeTelefon);
-            ulNode.appendChild(aNodeInternet);
+            ulNode.appendChild(aNodeURL);
 
             this.anzeigeNode.appendChild(ulNode);
 
@@ -320,31 +320,31 @@
             divNodeInputTelefon.appendChild(inputLabelTelefon);
             divNodeRowTelefon.appendChild(divNodeInputTelefon);
 
-            // Internet: Elemente erzeugen
-            const divNodeRowInternet = document.createElement('div');
-            divNodeRowInternet.setAttribute('class', 'row');
-            const divNodeInputInternet = document.createElement('div');
-            divNodeInputInternet.setAttribute('class', 'input-field col s12');
-            this.inputInternet = document.createElement('input');
-            this.inputInternet.setAttribute('placeholder', 'https://www.google.de')
-            this.inputInternet.setAttribute('id', 'inputInternet');
-            this.inputInternet.setAttribute('type', 'url');
-            this.inputInternet.setAttribute('class', 'validate');
-            const inputLabelInternet = document.createElement('label');
-            inputLabelInternet.setAttribute('for', 'inputInternet');
-            inputLabelInternet.setAttribute('class', 'active');
-            const textNodeInternet = document.createTextNode('Internet');
-            //Internet: Elemente zusammensetzen
-            inputLabelInternet.appendChild(textNodeInternet);
-            divNodeInputInternet.appendChild(this.inputInternet);
-            divNodeInputInternet.appendChild(inputLabelInternet);
-            divNodeRowInternet.appendChild(divNodeInputInternet);
+            // URL: Elemente erzeugen
+            const divNodeRowURL = document.createElement('div');
+            divNodeRowURL.setAttribute('class', 'row');
+            const divNodeInputURL = document.createElement('div');
+            divNodeInputURL.setAttribute('class', 'input-field col s12');
+            this.inputURL = document.createElement('input');
+            this.inputURL.setAttribute('placeholder', 'https://www.google.de')
+            this.inputURL.setAttribute('id', 'inputURL');
+            this.inputURL.setAttribute('type', 'url');
+            this.inputURL.setAttribute('class', 'validate');
+            const inputLabelURL = document.createElement('label');
+            inputLabelURL.setAttribute('for', 'inputURL');
+            inputLabelURL.setAttribute('class', 'active');
+            const textNodeURL = document.createTextNode('Webadresse');
+            //URL: Elemente zusammensetzen
+            inputLabelURL.appendChild(textNodeURL);
+            divNodeInputURL.appendChild(this.inputURL);
+            divNodeInputURL.appendChild(inputLabelURL);
+            divNodeRowURL.appendChild(divNodeInputURL);
 
             // Einzelne Elemente zur FormNode hinzufügen
             formNode.appendChild(divNodeRowName);
             formNode.appendChild(divNodeRowAdresse);
             formNode.appendChild(divNodeRowTelefon);
-            formNode.appendChild(divNodeRowInternet);
+            formNode.appendChild(divNodeRowURL);
 
             // FormNode der Anzeige hinzufügen
             this.anzeigeNode.appendChild(formNode);
@@ -403,11 +403,11 @@
             let telefon = this.inputTelefon.value;
             return telefon;
         },
-        //------------------------------ view.getInternet ------------------------------
-        inputInternet: null,
-        getInternet: function () {
-            let internet = this.inputInternet.value;
-            return internet;
+        //------------------------------ view.getURL ------------------------------
+        inputURL: null,
+        getURL: function () {
+            let url = this.inputURL.value;
+            return url;
         }
     };
     //========================== App ====================================
