@@ -308,7 +308,7 @@
             this.inputTelefon = document.createElement('input');
             this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
             this.inputTelefon.setAttribute('id', 'inputTelefon');
-            this.inputTelefon.setAttribute('type', 'text');
+            this.inputTelefon.setAttribute('type', 'tel');
             this.inputTelefon.setAttribute('class', 'validate');
             const inputLabelTelefon = document.createElement('label');
             inputLabelTelefon.setAttribute('for', 'inputTelefon');
@@ -328,7 +328,7 @@
             this.inputInternet = document.createElement('input');
             this.inputInternet.setAttribute('placeholder', 'https://www.google.de')
             this.inputInternet.setAttribute('id', 'inputInternet');
-            this.inputInternet.setAttribute('type', 'text');
+            this.inputInternet.setAttribute('type', 'url');
             this.inputInternet.setAttribute('class', 'validate');
             const inputLabelInternet = document.createElement('label');
             inputLabelInternet.setAttribute('for', 'inputInternet');
