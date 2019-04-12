@@ -111,6 +111,7 @@
                 node.removeChild(node.firstChild);
             }
             node.removeAttribute('class');
+            node.removeAttribute('style');
         },
         //------------------------------ view.renderList ------------------------------
         renderList: function (daten) {
@@ -118,7 +119,7 @@
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
 
-            // Attribut für Anzeige  DIV setzten
+            // Attribut für Anzeige DIV setzten
             this.anzeigeNode.setAttribute('class', 'collection');
 
             // Neue Liste erzeugen 
@@ -256,6 +257,7 @@
 
             // Attribut für Anzeige  DIV setzten
             this.anzeigeNode.setAttribute('class', 'row');
+            this.anzeigeNode.setAttribute('style', 'margin:0 10%');
 
             // FormNode erzeugen:            
             const formNode = document.createElement('form');
