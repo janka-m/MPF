@@ -4,7 +4,9 @@ let filesToCache = [
     './',
     './index.html',
     './JS/script.js',
-    './service-worker.js'
+    './service-worker.js',
+    './manifest.json'
+
 ];
 // Dateien in Cache speichern
 self.addEventListener('install', function (event) {

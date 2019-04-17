@@ -1,0 +1,22 @@
+{
+    "short_name": "MyWuerfeln",
+    "name": "MyWuerfelnApp",
+    "description": "Das ist meine super App zur Demonstration der Installierbarkeit von PWAs",
+    "start_url": "index.html",
+    "scope": "/",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "img/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "img/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "background_color": "#123456",
+    "theme_color": "#123456"
+}
