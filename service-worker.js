@@ -16,7 +16,7 @@ function precache() {
         return cache.addAll([
             './index.html',
             './service-worker.js',
-            '/JS/script.js',
+            './script.js',
             './manifest.json'
         ]);
     });
