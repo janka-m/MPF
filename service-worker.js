@@ -1,6 +1,5 @@
-
 // Daten
-let cacheName = 'MPF';
+let cacheName = 'myPersonalFavorites';
 let filesToCache = [
     './',
     './index.html',

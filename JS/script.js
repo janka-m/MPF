@@ -12,12 +12,13 @@
         } else {
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
+        presenter.init();
     };
     //======================================== Model ========================================
     const model = {
         datenArray: [],
         //------------------------------ model.init ------------------------------
-        init: function(){
+        init: function () {
             this.datenArray = dao.lesen();
         },
         //------------------------------ model.Create ------------------------------
@@ -121,7 +122,6 @@
             let daten = model.readAll();
             view.renderList(daten);
         }
-
     };
 
     //======================================== View ========================================
@@ -584,8 +584,8 @@
     };
     //========================== Data Access Object ====================================
     const dao = {
-        lesen: function(){
-            if (localStorage.getItem('myPersonalFavorites')){
+        lesen: function () {
+            if (localStorage.getItem('myPersonalFavorites')) {
                 let text = localStorage.getItem('myPersonalFavorites');
                 let daten = JSON.parse(text);
                 return daten;
@@ -593,12 +593,13 @@
                 return [];
             }
         },
-        schreiben:function(daten){
+        schreiben: function (daten) {
             let text = JSON.stringify(daten);
             localStorage.setItem('myPersonalFavorites', text);
         }
     };
 
     //========================== App ====================================
-    presenter.init();
+    // presenter.init();
+    regServiceWorker();
 })();
