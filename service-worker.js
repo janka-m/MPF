@@ -1,39 +1,35 @@
-var CACHE = 'cache-and-update';
+// Daten
+let cacheName = 'MyPersonalFavorites';
+let filesToCache = [
+    './',
+    './index.html',
+    'service-worker.js',
+    './script.js',
+    './manifest.json'
 
-self.addEventListener('install', function (evt) {
-    console.log('The service worker is being installed.');
-    evt.waitUntil(precache());
+];
+// Dateien in Cache speichern
+self.addEventListener('install', function (event) {
+    console.log('[Service Worker] Installation wird gestartet');
+    event.waitUntil(
+        caches.open(cacheName).then(function (cache) {
+            console.log('[Service Worker] Dateien werden gecachet');
+            return cache.addAll(filesToCache);
+        })
+    );
 });
-
-self.addEventListener('fetch', function (evt) {
-    console.log('The service worker is serving the asset.');
-    evt.respondWith(fromCache(evt.request));
-    evt.waitUntil(update(evt.request));
+// Dateien vom Cache laden
+self.addEventListener('fetch', function (event) {
+    console.log('[Service Worker] Angeforderte URL: ', event.request.url);
+    event.respondWith(
+        caches.match(event.request).then(function (response) {
+            if (response) {
+                console.log('[Service Worker] Ressource aus dem Cache geladen: ', event.request.url);
+                return response;
+            } else {
+                console.log('[Service Worker] Ressource aus dem Netzwerk geladen: ', event.request.url);
+                return fetch(event.request);
+            }
+        })
+    );
 });
-
-function precache() {
-    return caches.open(CACHE).then(function (cache) {
-        return cache.addAll([
-            './index.html',
-            './service-worker.js',
-            './script.js',
-            './manifest.json'
-        ]);
-    });
-}
-
-function fromCache(request) {
-    return caches.open(CACHE).then(function (cache) {
-        return cache.match(request).then(function (matching) {
-            return matching || Promise.reject('no-match');
-        });
-    });
-}
-
-function update(request) {
-    return caches.open(CACHE).then(function (cache) {
-        return fetch(request).then(function (response) {
-            return cache.put(request, response);
-        });
-    });
-}

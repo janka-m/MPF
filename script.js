@@ -13,6 +13,7 @@
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
         presenter.init();
+        presenter.setDateVersion();
     };
     //======================================== Model ========================================
     const model = {
@@ -50,12 +51,16 @@
     const presenter = {
         //------------------------------ presenter.init ------------------------------
         init: function () {
-            // Daten vom LocalStorage aktuallisieren
+            // Daten vom LocalStorage aktualisieren
             model.init();
             let daten = model.readAll();
             // Daten (Restaurants) ausgeben
             view.init();
             view.renderList(daten);
+        },
+        //------------------------------ presenter.setDateVersion ------------------------------
+        setDateVersion: function () {
+            view.setDateVersion();
         },
         //------------------------------ presenter.listElementClick ------------------------------
         listElementClick: function (index) {
@@ -128,10 +133,12 @@
     const view = {
         anzeigeNode: null,
         buttonNode: null,
+        dateVersionNode: null,
         //------------------------------ view.init ------------------------------
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
             this.buttonNode = document.getElementById('button');
+            this.dateVersionNode = document.getElementById('dateVersion')
         },
         //------------------------------ view.loeschen ------------------------------
         loeschen: function (node) {
@@ -140,6 +147,13 @@
             }
             node.removeAttribute('class');
             node.removeAttribute('style');
+        },
+        //------------------------------ view.setDateVersion ------------------------------
+        setDateVersion: function () {
+            const date = new Date();
+            const dateTextNode = document.createTextNode(date.toUTCString());
+            this.dateVersionNode.appendChild(dateTextNode);
+            
         },
         //------------------------------ view.renderList ------------------------------
         renderList: function (daten) {
@@ -602,4 +616,6 @@
     //========================== App ====================================
     // presenter.init();
     regServiceWorker();
+    
+    
 })();
