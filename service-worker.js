@@ -4,8 +4,7 @@ let filesToCache = [
     './',
     './index.html',
     'service-worker.js',
-    './script.js',
-    './manifest.json'
+    './script.js'
 
 ];
 // Dateien in Cache speichern
