@@ -4,9 +4,12 @@ let filesToCache = [
     './',
     './index.html',
     'service-worker.js',
-    './script.js'
-
+    './script.js',
+    './manifest.json',
+    './img/icon-192.png',
+    './img/icon-512.png',
 ];
+
 // Dateien in Cache speichern
 self.addEventListener('install', function (event) {
     console.log('[Service Worker] Installation wird gestartet');
@@ -17,6 +20,7 @@ self.addEventListener('install', function (event) {
         })
     );
 });
+
 // Dateien vom Cache laden
 self.addEventListener('fetch', function (event) {
     console.log('[Service Worker] Angeforderte URL: ', event.request.url);

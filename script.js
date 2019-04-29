@@ -8,12 +8,13 @@
                 .register('./service-worker.js')
                 .then(function () {
                     console.log('Service Worker wurde registriert');
+                    presenter.setDateVersion();
                 });
         } else {
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
         presenter.init();
-        presenter.setDateVersion();
+
     };
     //======================================== Model ========================================
     const model = {
@@ -153,7 +154,7 @@
             const date = new Date();
             const dateTextNode = document.createTextNode(date.toUTCString());
             this.dateVersionNode.appendChild(dateTextNode);
-            
+
         },
         //------------------------------ view.renderList ------------------------------
         renderList: function (daten) {
@@ -616,6 +617,6 @@
     //========================== App ====================================
     // presenter.init();
     regServiceWorker();
-    
-    
+
+
 })();
