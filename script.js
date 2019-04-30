@@ -86,12 +86,24 @@
             let url = view.getURL();
 
             // Neue Daten der Liste hinzufügen
-            model.create({
-                'name': name,
-                'adresse': adresse,
-                'telefon': telefon,
-                'url': url
-            });
+            if (name != "") {
+                model.create({
+                    'name': name
+                });
+            };
+            if (adresse != "") {
+                model.create({
+                    'name': name
+                });
+            };
+
+
+            // model.create({
+            //     'name': name,
+            //     'adresse': adresse,
+            //     'telefon': telefon,
+            //     'url': url
+            // });
 
             // Daten erneut holen
             let daten = model.readAll();
@@ -130,18 +142,12 @@
         },
         //------------------------------ presenter.blurFunctionInputName ------------------------------
         blurFunctionInputName: function (element) {
-
-            let value = view.getName();
-            console.log(value);
-            switch (view.getName()) {
-                case "":
-                    element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
-                    break;
-                default:
-                    element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            if (view.getName == "") {
+                element.removeAttribute('class');
+                element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
             }
+            element.removeAttribute('class');
+            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
         }
     };
 
@@ -252,9 +258,17 @@
             aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
-            ulNode.appendChild(liNodeAdresse);
-            ulNode.appendChild(liNodeTelefon);
-            ulNode.appendChild(aNodeURL);
+            console.log(daten.adresse);
+            if (daten.adresse != undefined) {
+                ulNode.appendChild(liNodeAdresse);
+            };
+            
+            if (daten.telefon != undefined) {
+                ulNode.appendChild(liNodeTelefon);
+            };
+            if (daten.url != undefined) {
+                ulNode.appendChild(aNodeURL);
+            };
 
             this.anzeigeNode.appendChild(ulNode);
 
