@@ -635,8 +635,8 @@
     };
 
     //========================== App ====================================
-    presenter.init();
-    //regServiceWorker();
+    //presenter.init();
+    regServiceWorker();
 
 
 })();
