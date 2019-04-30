@@ -127,6 +127,21 @@
             model.delete(index);
             let daten = model.readAll();
             view.renderList(daten);
+        },
+        //------------------------------ presenter.blurFunctionInputName ------------------------------
+        blurFunctionInputName: function (element) {
+
+            let value = view.getName();
+            console.log(value);
+            switch (view.getName()) {
+                case "":
+                    element.removeAttribute('class');
+                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
+                    break;
+                default:
+                    element.removeAttribute('class');
+                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            }
         }
     };
 
@@ -277,7 +292,7 @@
 
             // Back Button erzeugen
             const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey lighten-4')
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
             aNodeButtonBack.setAttribute('id', 'back');
             aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
@@ -394,12 +409,17 @@
             // FormNode der Anzeige hinzufügen
             this.anzeigeNode.appendChild(formNode);
 
-            // Focus auf InputName
-            inputName.focus();
+            // FocusIn auf InputName
+            this.inputName.focus();
+
+            // Event bei Input auf InputName
+            this.inputName.addEventListener("input", function () {
+                presenter.blurFunctionInputName(aNodeButtonSpeichernNeu)
+            }, true);
 
             // NeuSpeichern Button erzeugen
             const aNodeButtonSpeichernNeu = document.createElement('a');
-            aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
             aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
             const iNodeButtonSpeichernNeu = document.createElement('i');
             iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
@@ -415,7 +435,7 @@
 
             // BackButton erzeugen
             const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey lighten-4')
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
             aNodeButtonBack.setAttribute('id', 'back');
             aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
@@ -557,7 +577,7 @@
 
             // BackButton erzeugen
             const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey lighten-4')
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
             aNodeButtonBack.setAttribute('id', 'back');
             aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
@@ -615,8 +635,8 @@
     };
 
     //========================== App ====================================
-    // presenter.init();
-    regServiceWorker();
+    presenter.init();
+    //regServiceWorker();
 
 
 })();
