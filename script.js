@@ -86,24 +86,13 @@
             let url = view.getURL();
 
             // Neue Daten der Liste hinzufügen
-            if (name != "") {
-                model.create({
-                    'name': name
-                });
-            };
-            if (adresse != "") {
-                model.create({
-                    'name': name
-                });
-            };
 
-
-            // model.create({
-            //     'name': name,
-            //     'adresse': adresse,
-            //     'telefon': telefon,
-            //     'url': url
-            // });
+            model.create({
+                'name': name,
+                'adresse': adresse,
+                'telefon': telefon,
+                'url': url
+            });
 
             // Daten erneut holen
             let daten = model.readAll();
@@ -262,7 +251,7 @@
             if (daten.adresse != undefined) {
                 ulNode.appendChild(liNodeAdresse);
             };
-            
+
             if (daten.telefon != undefined) {
                 ulNode.appendChild(liNodeTelefon);
             };
@@ -504,7 +493,11 @@
             const divNodeInputAdresse = document.createElement('div');
             divNodeInputAdresse.setAttribute('class', 'input-field col s12');
             this.inputAdresse = document.createElement('input');
-            this.inputAdresse.value = daten.adresse;
+            if (daten.adresse != undefined) {
+                this.inputAdresse.value = daten.adresse;
+            } else {
+                this.inputAdresse.value = "";
+            };
             this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
             this.inputAdresse.setAttribute('id', 'inputAdresse');
             this.inputAdresse.setAttribute('type', 'text');
@@ -525,7 +518,11 @@
             const divNodeInputTelefon = document.createElement('div');
             divNodeInputTelefon.setAttribute('class', 'input-field col s12');
             this.inputTelefon = document.createElement('input');
-            this.inputTelefon.value = daten.telefon;
+            if (daten.telefon != undefined) {
+                this.inputTelefon.value = daten.telefon;
+            } else {
+                this.inputTelefon.value = "";
+            };
             this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
             this.inputTelefon.setAttribute('id', 'inputTelefon');
             this.inputTelefon.setAttribute('type', 'tel');
@@ -546,7 +543,11 @@
             const divNodeInputURL = document.createElement('div');
             divNodeInputURL.setAttribute('class', 'input-field col s12');
             this.inputURL = document.createElement('input');
-            this.inputURL.value = daten.url;
+            if (daten.url != undefined) {
+                this.inputURL.value = daten.url;
+            } else {
+                this.inputURL.value = "";
+            };
             this.inputURL.setAttribute('placeholder', 'https://www.google.de')
             this.inputURL.setAttribute('id', 'inputURL');
             this.inputURL.setAttribute('type', 'url');
