@@ -86,7 +86,6 @@
             let url = view.getURL();
 
             // Neue Daten der Liste hinzufügen
-
             model.create({
                 'name': name,
                 'adresse': adresse,
@@ -129,8 +128,8 @@
             let daten = model.readAll();
             view.renderList(daten);
         },
-        //------------------------------ presenter.blurFunctionInputName ------------------------------
-        blurFunctionInputName: function (element) {
+        //------------------------------ presenter.enableButton ------------------------------
+        enableButton: function (element) {
             if (view.getName == "") {
                 element.removeAttribute('class');
                 element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
@@ -247,15 +246,16 @@
             aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
-            console.log(daten.adresse);
-            if (daten.adresse != undefined) {
+
+            // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
+            console.log(daten);
+            if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
             };
-
-            if (daten.telefon != undefined) {
+            if (daten.telefon != undefined && daten.telefon != "") {
                 ulNode.appendChild(liNodeTelefon);
             };
-            if (daten.url != undefined) {
+            if (daten.url != undefined && daten.telefon != "") {
                 ulNode.appendChild(aNodeURL);
             };
 
@@ -417,7 +417,7 @@
 
             // Event bei Input auf InputName
             this.inputName.addEventListener("input", function () {
-                presenter.blurFunctionInputName(aNodeButtonSpeichernNeu)
+                presenter.enableButton(aNodeButtonSpeichernNeu)
             }, true);
 
             // NeuSpeichern Button erzeugen
@@ -650,7 +650,7 @@
     };
 
     //========================== App ====================================
-    //presenter.init();
+    presenter.init();
     regServiceWorker();
 
 
