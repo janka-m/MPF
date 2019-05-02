@@ -172,39 +172,31 @@
 
             switch (view.getName()) {
                 case "":
-                    element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating disabled btn-large');
+                    view.disableButton(element);
                     break;
                 case " ":
-                    element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating disabled btn-large');
+                    view.disableButton(element);
                     break;
                 default:
-                    element.removeAttribute('class');
-                    switch (element.id) {
-                        case "speichernNew":
-                            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
-                            break;
-                        case "speichernEdit":
-                            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
-                            break;
-                        default:
-                            break;
-                    }
+                    view.enableButton(element);
                     break;
             }
         },
         //------------------------------------------------------------------------------------
         //------------------------------ presenter.checkTelefonNummer ------------------------------
         //------------------------------------------------------------------------------------
-        checkTelefonNummer: function () {
-            let regEx = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
-            let match = view.getTelefon().match(regEx);
-            if (match == null) {
-                console.log("Hintergrund Rot");
-                
-            } else {
-                console.log("Hintergrund Normal");
+        checkEingabe: function () {
+            const regExTel = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
+
+            switch (true) {
+                case (view.getTelefon() != ""):
+                    if (view.getTelefon().match(regExTel) == null) {
+                        view.setzeHintergrundTelefon('red');
+                    }
+                    break;
+                default:
+                    view.setzeHintergrundTelefon('');
+                    break;
             }
         },
     };
@@ -504,7 +496,7 @@
 
             // Event bei Input auf InputTelefon
             this.inputTelefon.addEventListener("input", function () {
-                presenter.checkTelefonNummer()
+                presenter.checkEingabe();
             }, true);
 
             // NeuSpeichern Button erzeugen
@@ -727,14 +719,45 @@
         getTelefon: function () {
             let telefon = this.inputTelefon.value;
             return telefon;
-        }, //-----------------------------------------------------------------------
+        },
+        //------------------------------------------------------------------------------------------
+        //------------------------------ view.setzeHintergrundTelefon ------------------------------
+        //------------------------------------------------------------------------------------------
+        setzeHintergrundTelefon: function (farbe) {
+            this.inputTelefon.style.background = farbe;
+        },
+        //-----------------------------------------------------------------------
         //------------------------------ view.getURL ------------------------------
         //-------------------------------------------------------------------------
         inputURL: null,
         getURL: function () {
             let url = this.inputURL.value;
             return url;
+        },
+        //--------------------------------------------------------------------------------
+        //------------------------------ view.disableButton ------------------------------
+        //--------------------------------------------------------------------------------
+        disableButton: function (element) {
+            element.removeAttribute('class');
+            element.setAttribute('class', 'btn-floating disabled btn-large');
+        },
+        //-------------------------------------------------------------------------------
+        //------------------------------ view.enableButton ------------------------------
+        //-------------------------------------------------------------------------------
+        enableButton: function (element) {
+            element.removeAttribute('class');
+            switch (element.id) {
+                case "speichernNew":
+                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+                    break;
+                case "speichernEdit":
+                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
+                    break;
+                default:
+                    break;
+            }
         }
+
     };
     //==================================================================================
     //========================== Data Access Object ====================================
