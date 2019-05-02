@@ -169,12 +169,20 @@
         //------------------------------ presenter.enableButton ------------------------------
         //------------------------------------------------------------------------------------
         enableButton: function (element) {
-            if (view.getName == "") {
-                element.removeAttribute('class');
-                element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
+            switch (view.getName()) {
+                case "":
+                    element.removeAttribute('class');
+                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
+                    break;
+                case " ":
+                    element.removeAttribute('class');
+                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
+                    break;
+                default:
+                    element.removeAttribute('class');
+                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+                    break;
             }
-            element.removeAttribute('class');
-            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
         }
     };
     //======================================================================================
@@ -298,7 +306,6 @@
             ulNode.appendChild(liNodeName);
 
             // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
-            console.log(daten);
             if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
             };
