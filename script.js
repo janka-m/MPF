@@ -169,21 +169,44 @@
         //------------------------------ presenter.enableButton ------------------------------
         //------------------------------------------------------------------------------------
         enableButton: function (element) {
+
             switch (view.getName()) {
                 case "":
                     element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
+                    element.setAttribute('class', 'btn-floating disabled btn-large');
                     break;
                 case " ":
                     element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2');
+                    element.setAttribute('class', 'btn-floating disabled btn-large');
                     break;
                 default:
                     element.removeAttribute('class');
-                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+                    switch (element.id) {
+                        case "speichernNew":
+                            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+                            break;
+                        case "speichernEdit":
+                            element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
+                            break;
+                        default:
+                            break;
+                    }
                     break;
             }
-        }
+        },
+        //------------------------------------------------------------------------------------
+        //------------------------------ presenter.checkTelefonNummer ------------------------------
+        //------------------------------------------------------------------------------------
+        checkTelefonNummer: function () {
+            let regEx = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
+            let match = view.getTelefon().match(regEx);
+            if (match == null) {
+                console.log("Hintergrund Rot");
+                
+            } else {
+                console.log("Hintergrund Normal");
+            }
+        },
     };
     //======================================================================================
     //======================================== View ========================================
@@ -479,6 +502,11 @@
                 presenter.enableButton(aNodeButtonSpeichernNeu)
             }, true);
 
+            // Event bei Input auf InputTelefon
+            this.inputTelefon.addEventListener("input", function () {
+                presenter.checkTelefonNummer()
+            }, true);
+
             // NeuSpeichern Button erzeugen
             const aNodeButtonSpeichernNeu = document.createElement('a');
             aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
@@ -635,21 +663,29 @@
             // Focus auf InputName
             inputName.focus();
 
+            // FocusIn auf InputName
+            this.inputName.focus();
+
+            // Event bei Input auf InputName
+            this.inputName.addEventListener("input", function () {
+                presenter.enableButton(aNodeButtonSpeichernEdit)
+            }, true);
+
             // EditSpeichern Button erzeugen
-            const aNodeButtonSpeichernNeu = document.createElement('a');
-            aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
-            aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
-            const iNodeButtonSpeichernNeu = document.createElement('i');
-            iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
-            const iNodeButtonSpeichernNeuText = document.createTextNode('+');
+            const aNodeButtonSpeichernEdit = document.createElement('a');
+            aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
+            aNodeButtonSpeichernEdit.setAttribute('id', 'speichernEdit');
+            const iNodeButtonSpeichernEdit = document.createElement('i');
+            iNodeButtonSpeichernEdit.setAttribute('class', 'material-icons');
+            const iNodeButtonSpeichernEditText = document.createTextNode('+');
             // Eventlistener EditSpeichernButton
-            iNodeButtonSpeichernNeu.addEventListener('click', function () {
+            iNodeButtonSpeichernEdit.addEventListener('click', function () {
                 presenter.btnEditSpeichernClick(index);
             });
             // EditSpeichernButton zusammensetzen
-            iNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeuText);
-            aNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeu);
-            this.buttonNode.appendChild(aNodeButtonSpeichernNeu);
+            iNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEditText);
+            aNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEdit);
+            this.buttonNode.appendChild(aNodeButtonSpeichernEdit);
 
             // BackButton erzeugen
             const aNodeButtonBack = document.createElement('a');
@@ -721,8 +757,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    //presenter.init();
-    regServiceWorker();
+    presenter.init();
+    // regServiceWorker();
 
 
 })();
