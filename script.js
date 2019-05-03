@@ -524,107 +524,18 @@
             // FormNode erzeugen:            
             const formNode = document.createElement('form');
             formNode.setAttribute('class', 'col s12');
-
-            // Name: Elemente erzeugen
-            const divNodeRowName = document.createElement('div');
-            divNodeRowName.setAttribute('class', 'row');
-            const divNodeInputName = document.createElement('div');
-            divNodeInputName.setAttribute('class', 'input-field col s12');
-            this.inputName = document.createElement('input');
-            this.inputName.value = daten.name;
-            this.inputName.setAttribute('id', 'inputName');
-            this.inputName.setAttribute('type', 'text');
-            this.inputName.setAttribute('class', 'validate');
-            const inputLabelName = document.createElement('label');
-            inputLabelName.setAttribute('for', 'inputName');
-            inputLabelName.setAttribute('class', 'active');
-            const textNodeName = document.createTextNode('Name');
-            //Name: Elemente zusammensetzen
-            inputLabelName.appendChild(textNodeName);
-            divNodeInputName.appendChild(this.inputName);
-            divNodeInputName.appendChild(inputLabelName);
-            divNodeRowName.appendChild(divNodeInputName);
-
-            // Adresse: Elemente erzeugen
-            const divNodeRowAdresse = document.createElement('div');
-            divNodeRowAdresse.setAttribute('class', 'row');
-            const divNodeInputAdresse = document.createElement('div');
-            divNodeInputAdresse.setAttribute('class', 'input-field col s12');
-            this.inputAdresse = document.createElement('input');
-            if (daten.adresse != undefined) {
-                this.inputAdresse.value = daten.adresse;
-            } else {
-                this.inputAdresse.value = "";
-            };
-            this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
-            this.inputAdresse.setAttribute('id', 'inputAdresse');
-            this.inputAdresse.setAttribute('type', 'text');
-            this.inputAdresse.setAttribute('class', 'validate');
-            const inputLabelAdresse = document.createElement('label');
-            inputLabelAdresse.setAttribute('for', 'inputAdresse');
-            inputLabelAdresse.setAttribute('class', 'active');
-            const textNodeAdresse = document.createTextNode('Adresse');
-            //Adresse: Elemente zusammensetzen
-            inputLabelAdresse.appendChild(textNodeAdresse);
-            divNodeInputAdresse.appendChild(this.inputAdresse);
-            divNodeInputAdresse.appendChild(inputLabelAdresse);
-            divNodeRowAdresse.appendChild(divNodeInputAdresse);
-
-            // Telefon: Elemente erzeugen
-            const divNodeRowTelefon = document.createElement('div');
-            divNodeRowTelefon.setAttribute('class', 'row');
-            const divNodeInputTelefon = document.createElement('div');
-            divNodeInputTelefon.setAttribute('class', 'input-field col s12');
-            this.inputTelefon = document.createElement('input');
-            if (daten.telefon != undefined) {
-                this.inputTelefon.value = daten.telefon;
-            } else {
-                this.inputTelefon.value = "";
-            };
-            this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
-            this.inputTelefon.setAttribute('id', 'inputTelefon');
-            this.inputTelefon.setAttribute('type', 'tel');
-            this.inputTelefon.setAttribute('class', 'validate');
-            const inputLabelTelefon = document.createElement('label');
-            inputLabelTelefon.setAttribute('for', 'inputTelefon');
-            inputLabelTelefon.setAttribute('class', 'active');
-            const textNodeTelefon = document.createTextNode('Telefon');
-            //Telefon: Elemente zusammensetzen
-            inputLabelTelefon.appendChild(textNodeTelefon);
-            divNodeInputTelefon.appendChild(this.inputTelefon);
-            divNodeInputTelefon.appendChild(inputLabelTelefon);
-            divNodeRowTelefon.appendChild(divNodeInputTelefon);
-
-            // URL: Elemente erzeugen
-            const divNodeRowURL = document.createElement('div');
-            divNodeRowURL.setAttribute('class', 'row');
-            const divNodeInputURL = document.createElement('div');
-            divNodeInputURL.setAttribute('class', 'input-field col s12');
-            this.inputURL = document.createElement('input');
-            if (daten.url != undefined) {
-                this.inputURL.value = daten.url;
-            } else {
-                this.inputURL.value = "";
-            };
-            this.inputURL.setAttribute('placeholder', 'https://www.google.de')
-            this.inputURL.setAttribute('id', 'inputURL');
-            this.inputURL.setAttribute('type', 'url');
-            this.inputURL.setAttribute('class', 'validate');
-            const inputLabelURL = document.createElement('label');
-            inputLabelURL.setAttribute('for', 'inputURL');
-            inputLabelURL.setAttribute('class', 'active');
-            const textNodeURL = document.createTextNode('Webadresse');
-            //URL: Elemente zusammensetzen
-            inputLabelURL.appendChild(textNodeURL);
-            divNodeInputURL.appendChild(this.inputURL);
-            divNodeInputURL.appendChild(inputLabelURL);
-            divNodeRowURL.appendChild(divNodeInputURL);
-
-            // Einzelne Elemente zur FormNode hinzufügen
-            formNode.appendChild(divNodeRowName);
-            formNode.appendChild(divNodeRowAdresse);
-            formNode.appendChild(divNodeRowTelefon);
-            formNode.appendChild(divNodeRowURL);
+            
+            // Felder erzeugen
+            const namenFeld = view.erzeugeNamenFeld(daten);
+            const adressFeld = view.erzeugeAdressFeld(daten);
+            const telefonFeld = view.erzeugeTelefonFeld(daten);
+            const urlFeld = view.erzeugeURLFeld(daten);   
+         
+            // Einzelne Felder zur FormNode hinzufügen
+            formNode.appendChild(namenFeld);
+            formNode.appendChild(adressFeld);
+            formNode.appendChild(telefonFeld);
+            formNode.appendChild(urlFeld);
 
             // FormNode der Anzeige hinzufügen
             this.anzeigeNode.appendChild(formNode);
@@ -697,12 +608,7 @@
             let telefon = this.inputTelefon.value;
             return telefon;
         },
-        //------------------------------------------------------------------------------------------
-        //------------------------------ view.setzeHintergrundTelefon ------------------------------
-        //------------------------------------------------------------------------------------------
-        setzeHintergrundTelefon: function (farbe) {
-            this.inputTelefon.style.background = farbe;
-        },
+
         //-----------------------------------------------------------------------
         //------------------------------ view.getURL ------------------------------
         //-------------------------------------------------------------------------
@@ -710,6 +616,125 @@
         getURL: function () {
             let url = this.inputURL.value;
             return url;
+        },
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.erzeugeNamenFeld ------------------------
+        //-----------------------------------------------------------------------------
+        erzeugeNamenFeld: function (daten) {
+            // Name: Elemente erzeugen
+            const divNodeRowName = document.createElement('div');
+            divNodeRowName.setAttribute('class', 'row');
+            const divNodeInputName = document.createElement('div');
+            divNodeInputName.setAttribute('class', 'input-field col s12');
+            this.inputName = document.createElement('input');
+            this.inputName.value = daten.name;
+            this.inputName.setAttribute('id', 'inputName');
+            this.inputName.setAttribute('type', 'text');
+            this.inputName.setAttribute('class', 'validate');
+            const inputLabelName = document.createElement('label');
+            inputLabelName.setAttribute('for', 'inputName');
+            inputLabelName.setAttribute('class', 'active');
+            const textNodeName = document.createTextNode('Name');
+            //Name: Elemente zusammensetzen
+            inputLabelName.appendChild(textNodeName);
+            divNodeInputName.appendChild(this.inputName);
+            divNodeInputName.appendChild(inputLabelName);
+            divNodeRowName.appendChild(divNodeInputName);
+
+            return divNodeRowName;
+        },
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.erzeugeAdressFeld -----------------------
+        //-----------------------------------------------------------------------------
+        erzeugeAdressFeld: function (daten) {
+            // Adresse: Elemente erzeugen
+            const divNodeRowAdresse = document.createElement('div');
+            divNodeRowAdresse.setAttribute('class', 'row');
+            const divNodeInputAdresse = document.createElement('div');
+            divNodeInputAdresse.setAttribute('class', 'input-field col s12');
+            this.inputAdresse = document.createElement('input');
+            if (daten.adresse != undefined) {
+                this.inputAdresse.value = daten.adresse;
+            } else {
+                this.inputAdresse.value = "";
+            };
+            this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
+            this.inputAdresse.setAttribute('id', 'inputAdresse');
+            this.inputAdresse.setAttribute('type', 'text');
+            this.inputAdresse.setAttribute('class', 'validate');
+            const inputLabelAdresse = document.createElement('label');
+            inputLabelAdresse.setAttribute('for', 'inputAdresse');
+            inputLabelAdresse.setAttribute('class', 'active');
+            const textNodeAdresse = document.createTextNode('Adresse');
+            //Adresse: Elemente zusammensetzen
+            inputLabelAdresse.appendChild(textNodeAdresse);
+            divNodeInputAdresse.appendChild(this.inputAdresse);
+            divNodeInputAdresse.appendChild(inputLabelAdresse);
+            divNodeRowAdresse.appendChild(divNodeInputAdresse);
+
+            return divNodeRowAdresse;
+        },
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.erzeugeTelefonFeld ----------------------
+        //-----------------------------------------------------------------------------
+        erzeugeTelefonFeld: function(daten){
+            // Telefon: Elemente erzeugen
+            const divNodeRowTelefon = document.createElement('div');
+            divNodeRowTelefon.setAttribute('class', 'row');
+            const divNodeInputTelefon = document.createElement('div');
+            divNodeInputTelefon.setAttribute('class', 'input-field col s12');
+            this.inputTelefon = document.createElement('input');
+            if (daten.telefon != undefined) {
+                this.inputTelefon.value = daten.telefon;
+            } else {
+                this.inputTelefon.value = "";
+            };
+            this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
+            this.inputTelefon.setAttribute('id', 'inputTelefon');
+            this.inputTelefon.setAttribute('type', 'tel');
+            this.inputTelefon.setAttribute('class', 'validate');
+            const inputLabelTelefon = document.createElement('label');
+            inputLabelTelefon.setAttribute('for', 'inputTelefon');
+            inputLabelTelefon.setAttribute('class', 'active');
+            const textNodeTelefon = document.createTextNode('Telefon');
+            //Telefon: Elemente zusammensetzen
+            inputLabelTelefon.appendChild(textNodeTelefon);
+            divNodeInputTelefon.appendChild(this.inputTelefon);
+            divNodeInputTelefon.appendChild(inputLabelTelefon);
+            divNodeRowTelefon.appendChild(divNodeInputTelefon);
+
+            return divNodeRowTelefon;
+        },
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.erzeugeURLFeld --------------------------
+        //-----------------------------------------------------------------------------
+        erzeugeURLFeld: function(daten){
+            // URL: Elemente erzeugen
+            const divNodeRowURL = document.createElement('div');
+            divNodeRowURL.setAttribute('class', 'row');
+            const divNodeInputURL = document.createElement('div');
+            divNodeInputURL.setAttribute('class', 'input-field col s12');
+            this.inputURL = document.createElement('input');
+            if (daten.url != undefined) {
+                this.inputURL.value = daten.url;
+            } else {
+                this.inputURL.value = "";
+            };
+            this.inputURL.setAttribute('placeholder', 'https://www.google.de')
+            this.inputURL.setAttribute('id', 'inputURL');
+            this.inputURL.setAttribute('type', 'url');
+            this.inputURL.setAttribute('class', 'validate');
+            const inputLabelURL = document.createElement('label');
+            inputLabelURL.setAttribute('for', 'inputURL');
+            inputLabelURL.setAttribute('class', 'active');
+            const textNodeURL = document.createTextNode('Webadresse');
+            //URL: Elemente zusammensetzen
+            inputLabelURL.appendChild(textNodeURL);
+            divNodeInputURL.appendChild(this.inputURL);
+            divNodeInputURL.appendChild(inputLabelURL);
+            divNodeRowURL.appendChild(divNodeInputURL);
+
+            return divNodeRowURL;
         },
         //--------------------------------------------------------------------------------
         //------------------------------ view.disableButton ------------------------------
@@ -757,8 +782,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    // presenter.init();
-    regServiceWorker();
+    presenter.init();
+    // regServiceWorker();
 
 
 })();
