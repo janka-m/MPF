@@ -380,90 +380,17 @@
             const formNode = document.createElement('form');
             formNode.setAttribute('class', 'col s12');
 
-            // Name: Elemente erzeugen
-            const divNodeRowName = document.createElement('div');
-            divNodeRowName.setAttribute('class', 'row');
-            const divNodeInputName = document.createElement('div');
-            divNodeInputName.setAttribute('class', 'input-field col s12');
-            this.inputName = document.createElement('input');
-            this.inputName.setAttribute('id', 'inputName');
-            this.inputName.setAttribute('type', 'text');
-            this.inputName.setAttribute('class', 'validate');
-            const inputLabelName = document.createElement('label');
-            inputLabelName.setAttribute('for', 'inputName');
-            inputLabelName.setAttribute('class', 'active');
-            const textNodeName = document.createTextNode('Name');
-            //Name: Elemente zusammensetzen
-            inputLabelName.appendChild(textNodeName);
-            divNodeInputName.appendChild(this.inputName);
-            divNodeInputName.appendChild(inputLabelName);
-            divNodeRowName.appendChild(divNodeInputName);
+            // Felder erzeugen
+            const namenFeld = view.erzeugeNamenFeld();
+            const adressFeld = view.erzeugeAdressFeld();
+            const telefonFeld = view.erzeugeTelefonFeld();
+            const urlFeld = view.erzeugeURLFeld();
 
-            // Adresse: Elemente erzeugen
-            const divNodeRowAdresse = document.createElement('div');
-            divNodeRowAdresse.setAttribute('class', 'row');
-            const divNodeInputAdresse = document.createElement('div');
-            divNodeInputAdresse.setAttribute('class', 'input-field col s12');
-            this.inputAdresse = document.createElement('input');
-            this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
-            this.inputAdresse.setAttribute('id', 'inputAdresse');
-            this.inputAdresse.setAttribute('type', 'text');
-            this.inputAdresse.setAttribute('class', 'validate');
-            const inputLabelAdresse = document.createElement('label');
-            inputLabelAdresse.setAttribute('for', 'inputAdresse');
-            inputLabelAdresse.setAttribute('class', 'active');
-            const textNodeAdresse = document.createTextNode('Adresse');
-            //Adresse: Elemente zusammensetzen
-            inputLabelAdresse.appendChild(textNodeAdresse);
-            divNodeInputAdresse.appendChild(this.inputAdresse);
-            divNodeInputAdresse.appendChild(inputLabelAdresse);
-            divNodeRowAdresse.appendChild(divNodeInputAdresse);
-
-            // Telefon: Elemente erzeugen
-            const divNodeRowTelefon = document.createElement('div');
-            divNodeRowTelefon.setAttribute('class', 'row');
-            const divNodeInputTelefon = document.createElement('div');
-            divNodeInputTelefon.setAttribute('class', 'input-field col s12');
-            this.inputTelefon = document.createElement('input');
-            this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
-            this.inputTelefon.setAttribute('id', 'inputTelefon');
-            this.inputTelefon.setAttribute('type', 'tel');
-            this.inputTelefon.setAttribute('class', 'validate');
-            const inputLabelTelefon = document.createElement('label');
-            inputLabelTelefon.setAttribute('for', 'inputTelefon');
-            inputLabelTelefon.setAttribute('class', 'active');
-            const textNodeTelefon = document.createTextNode('Telefon');
-            //Telefon: Elemente zusammensetzen
-            inputLabelTelefon.appendChild(textNodeTelefon);
-            divNodeInputTelefon.appendChild(this.inputTelefon);
-            divNodeInputTelefon.appendChild(inputLabelTelefon);
-            divNodeRowTelefon.appendChild(divNodeInputTelefon);
-
-            // URL: Elemente erzeugen
-            const divNodeRowURL = document.createElement('div');
-            divNodeRowURL.setAttribute('class', 'row');
-            const divNodeInputURL = document.createElement('div');
-            divNodeInputURL.setAttribute('class', 'input-field col s12');
-            this.inputURL = document.createElement('input');
-            this.inputURL.setAttribute('placeholder', 'https://www.google.de')
-            this.inputURL.setAttribute('id', 'inputURL');
-            this.inputURL.setAttribute('type', 'url');
-            this.inputURL.setAttribute('class', 'validate');
-            const inputLabelURL = document.createElement('label');
-            inputLabelURL.setAttribute('for', 'inputURL');
-            inputLabelURL.setAttribute('class', 'active');
-            const textNodeURL = document.createTextNode('Webadresse');
-            //URL: Elemente zusammensetzen
-            inputLabelURL.appendChild(textNodeURL);
-            divNodeInputURL.appendChild(this.inputURL);
-            divNodeInputURL.appendChild(inputLabelURL);
-            divNodeRowURL.appendChild(divNodeInputURL);
-
-            // Einzelne Elemente zur FormNode hinzufügen
-            formNode.appendChild(divNodeRowName);
-            formNode.appendChild(divNodeRowAdresse);
-            formNode.appendChild(divNodeRowTelefon);
-            formNode.appendChild(divNodeRowURL);
+            // Einzelne Felder zur FormNode hinzufügen
+            formNode.appendChild(namenFeld);
+            formNode.appendChild(adressFeld);
+            formNode.appendChild(telefonFeld);
+            formNode.appendChild(urlFeld);
 
             // FormNode der Anzeige hinzufügen
             this.anzeigeNode.appendChild(formNode);
@@ -524,13 +451,24 @@
             // FormNode erzeugen:            
             const formNode = document.createElement('form');
             formNode.setAttribute('class', 'col s12');
-            
+
             // Felder erzeugen
-            const namenFeld = view.erzeugeNamenFeld(daten);
-            const adressFeld = view.erzeugeAdressFeld(daten);
-            const telefonFeld = view.erzeugeTelefonFeld(daten);
-            const urlFeld = view.erzeugeURLFeld(daten);   
-         
+            const namenFeld = view.erzeugeNamenFeld();
+            const adressFeld = view.erzeugeAdressFeld();
+            const telefonFeld = view.erzeugeTelefonFeld();
+            const urlFeld = view.erzeugeURLFeld();
+
+            // Felder da Edit mit Werten befüllen
+            // Namenfeld
+            view.setNameValue(daten);
+            // Addressfeld
+            view.setAdresseValue(daten);
+            // Telefonfeld
+            view.setTelefonValue(daten);
+            // URLFeld
+            view.setURLValue(daten);
+
+
             // Einzelne Felder zur FormNode hinzufügen
             formNode.appendChild(namenFeld);
             formNode.appendChild(adressFeld);
@@ -585,32 +523,57 @@
             this.buttonNode.appendChild(aNodeButtonBack);
         },
         //--------------------------------------------------------------------------
-        //------------------------------ view.getName ------------------------------
-        //----------------------------------------------------------------------------
+        //------------------------------ view.getNamefromForm ------------------------------
+        //--------------------------------------------------------------------------
         inputName: null,
         getName: function () {
             let name = this.inputName.value;
             return name;
         },
+        //---------------------------------------------------------------------------
+        //------------------------------ view.setNameinForm -------------------------
+        //---------------------------------------------------------------------------
+        setNameValue: function (daten) {
+            this.inputName.value = daten.name;
+        },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.getAdresse ------------------------------
+        //------------------------------ view.getAdressefromForm ------------------------------
         //----------------------------------------------------------------------------
         inputAdresse: null,
         getAdresse: function () {
             let adresse = this.inputAdresse.value;
             return adresse;
         },
+        //--------------------------------------------------------------------------
+        //------------------------------ view.setAdresseinForm ---------------------
+        //--------------------------------------------------------------------------
+        setAdresseValue: function (daten) {
+            if (daten.adresse != undefined) {
+                this.inputAdresse.value = daten.adresse;
+            } else {
+                this.inputAdresse.value = "";
+            };
+        },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.getTelefon ------------------------------
+        //------------------------------ view.getTelefonfromForm ----------------------
         //-----------------------------------------------------------------------------
         inputTelefon: null,
         getTelefon: function () {
             let telefon = this.inputTelefon.value;
             return telefon;
         },
-
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.setTelefoninForm ------------------------
+        //-----------------------------------------------------------------------------
+        setTelefonValue: function (daten) {
+            if (daten.telefon != undefined) {
+                this.inputTelefon.value = daten.telefon;
+            } else {
+                this.inputTelefon.value = "";
+            };
+        },
         //-----------------------------------------------------------------------
-        //------------------------------ view.getURL ------------------------------
+        //------------------------------ view.getURLfromForm ------------------------------
         //-------------------------------------------------------------------------
         inputURL: null,
         getURL: function () {
@@ -618,16 +581,25 @@
             return url;
         },
         //-----------------------------------------------------------------------------
+        //------------------------------ view.setURLinForm ----------------------------
+        //-----------------------------------------------------------------------------
+        setURLValue: function (daten) {
+            if (daten.url != undefined) {
+                this.inputURL.value = daten.url;
+            } else {
+                this.inputURL.value = "";
+            };
+        },
+        //-----------------------------------------------------------------------------
         //------------------------------ view.erzeugeNamenFeld ------------------------
         //-----------------------------------------------------------------------------
-        erzeugeNamenFeld: function (daten) {
+        erzeugeNamenFeld: function () {
             // Name: Elemente erzeugen
             const divNodeRowName = document.createElement('div');
             divNodeRowName.setAttribute('class', 'row');
             const divNodeInputName = document.createElement('div');
             divNodeInputName.setAttribute('class', 'input-field col s12');
             this.inputName = document.createElement('input');
-            this.inputName.value = daten.name;
             this.inputName.setAttribute('id', 'inputName');
             this.inputName.setAttribute('type', 'text');
             this.inputName.setAttribute('class', 'validate');
@@ -646,18 +618,13 @@
         //-----------------------------------------------------------------------------
         //------------------------------ view.erzeugeAdressFeld -----------------------
         //-----------------------------------------------------------------------------
-        erzeugeAdressFeld: function (daten) {
+        erzeugeAdressFeld: function () {
             // Adresse: Elemente erzeugen
             const divNodeRowAdresse = document.createElement('div');
             divNodeRowAdresse.setAttribute('class', 'row');
             const divNodeInputAdresse = document.createElement('div');
             divNodeInputAdresse.setAttribute('class', 'input-field col s12');
             this.inputAdresse = document.createElement('input');
-            if (daten.adresse != undefined) {
-                this.inputAdresse.value = daten.adresse;
-            } else {
-                this.inputAdresse.value = "";
-            };
             this.inputAdresse.setAttribute('placeholder', 'Musterstraße 1, 81818 Musterstadt')
             this.inputAdresse.setAttribute('id', 'inputAdresse');
             this.inputAdresse.setAttribute('type', 'text');
@@ -677,18 +644,13 @@
         //-----------------------------------------------------------------------------
         //------------------------------ view.erzeugeTelefonFeld ----------------------
         //-----------------------------------------------------------------------------
-        erzeugeTelefonFeld: function(daten){
+        erzeugeTelefonFeld: function (daten) {
             // Telefon: Elemente erzeugen
             const divNodeRowTelefon = document.createElement('div');
             divNodeRowTelefon.setAttribute('class', 'row');
             const divNodeInputTelefon = document.createElement('div');
             divNodeInputTelefon.setAttribute('class', 'input-field col s12');
             this.inputTelefon = document.createElement('input');
-            if (daten.telefon != undefined) {
-                this.inputTelefon.value = daten.telefon;
-            } else {
-                this.inputTelefon.value = "";
-            };
             this.inputTelefon.setAttribute('placeholder', '+49 1234 56789')
             this.inputTelefon.setAttribute('id', 'inputTelefon');
             this.inputTelefon.setAttribute('type', 'tel');
@@ -708,18 +670,13 @@
         //-----------------------------------------------------------------------------
         //------------------------------ view.erzeugeURLFeld --------------------------
         //-----------------------------------------------------------------------------
-        erzeugeURLFeld: function(daten){
+        erzeugeURLFeld: function (daten) {
             // URL: Elemente erzeugen
             const divNodeRowURL = document.createElement('div');
             divNodeRowURL.setAttribute('class', 'row');
             const divNodeInputURL = document.createElement('div');
             divNodeInputURL.setAttribute('class', 'input-field col s12');
             this.inputURL = document.createElement('input');
-            if (daten.url != undefined) {
-                this.inputURL.value = daten.url;
-            } else {
-                this.inputURL.value = "";
-            };
             this.inputURL.setAttribute('placeholder', 'https://www.google.de')
             this.inputURL.setAttribute('id', 'inputURL');
             this.inputURL.setAttribute('type', 'url');
@@ -782,8 +739,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    presenter.init();
-    // regServiceWorker();
+    // presenter.init();
+    regServiceWorker();
 
 
 })();
