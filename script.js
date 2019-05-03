@@ -185,20 +185,6 @@
         //------------------------------------------------------------------------------------
         //------------------------------ presenter.checkTelefonNummer ------------------------------
         //------------------------------------------------------------------------------------
-        checkEingabe: function () {
-            const regExTel = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g;
-
-            switch (true) {
-                case (view.getTelefon() != ""):
-                    if (view.getTelefon().match(regExTel) == null) {
-                        view.setzeHintergrundTelefon('red');
-                    }
-                    break;
-                default:
-                    view.setzeHintergrundTelefon('');
-                    break;
-            }
-        },
     };
     //======================================================================================
     //======================================== View ========================================
@@ -390,7 +376,7 @@
             view.loeschen(this.anzeigeNode);
             view.loeschen(this.buttonNode);
 
-            // Attribut für Anzeige  DIV setzten
+            // Attribut für Anzeige DIV setzten
             this.anzeigeNode.setAttribute('class', 'row');
             this.anzeigeNode.setAttribute('style', 'margin:0 10%');
 
@@ -492,11 +478,6 @@
             // Event bei Input auf InputName
             this.inputName.addEventListener("input", function () {
                 presenter.enableButton(aNodeButtonSpeichernNeu)
-            }, true);
-
-            // Event bei Input auf InputTelefon
-            this.inputTelefon.addEventListener("input", function () {
-                presenter.checkEingabe();
             }, true);
 
             // NeuSpeichern Button erzeugen
