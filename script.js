@@ -164,7 +164,18 @@
             model.delete(index);
             let daten = model.readAll();
             view.renderList(daten);
+        }, //----------------------------------------------------------------------------------------------
+        //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
+        //------------------------------------------------------------------------------------------------
+        buttonSpeichernNeuEinAus: function () {
+            const string = view.getName().trim();
+            if (string == "") {
+                view.buttonSpeichernNeu.ausblenden();  
+                return;
+            };
+            view.buttonSpeichernNeu.einblenden();
         },
+
         //------------------------------------------------------------------------------------
         //------------------------------ presenter.enableButton ------------------------------
         //------------------------------------------------------------------------------------
@@ -347,25 +358,11 @@
 
             // Event bei Input auf InputName
             this.inputName.addEventListener("input", function () {
-                presenter.enableButton(aNodeButtonSpeichernNeu)
+                presenter.buttonSpeichernNeuEinAus()
             }, true);
 
-            // NeuSpeichern Button erzeugen
-            const aNodeButtonSpeichernNeu = document.createElement('a');
-            aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
-            aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
-            const iNodeButtonSpeichernNeu = document.createElement('i');
-            iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
-            const iNodeButtonSpeichernNeuText = document.createTextNode('+');
-            // Eventlistener NeuSpeichernButton
-            iNodeButtonSpeichernNeu.addEventListener('click', function () {
-                presenter.btnAddSpeichernClick();
-            });
-            // NeuSpeichernButton zusammensetzen
-            iNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeuText);
-            aNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeu);
-            this.buttonNode.appendChild(aNodeButtonSpeichernNeu);
-
+            // ButtonSpeichernNeu erzeugen
+            view.buttonSpeichernNeu.erzeugen();
             // Back Button erzeugen
             view.erzeugeBackButton();
         },
@@ -688,6 +685,34 @@
             iNodeButtonDel.appendChild(iNodeButtonDelText);
             aNodeButtonDel.appendChild(iNodeButtonDel);
             this.buttonNode.appendChild(aNodeButtonDel);
+        }, //------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeButtonSpeichernNeu ------------------
+        //--------------------------------------------------------------------------------
+        buttonSpeichernNeu: {
+            aNodeButtonSpeichernNeu: document.createElement('a'),
+            erzeugen: function () {
+                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
+                this.aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
+                const iNodeButtonSpeichernNeu = document.createElement('i');
+                iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
+                const iNodeButtonSpeichernNeuText = document.createTextNode('+');
+                // Eventlistener NeuSpeichernButton
+                iNodeButtonSpeichernNeu.addEventListener('click', function () {
+                    presenter.btnAddSpeichernClick();
+                });
+                // NeuSpeichernButton zusammensetzen
+                iNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeuText);
+                this.aNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeu);
+                view.buttonNode.appendChild(this.aNodeButtonSpeichernNeu);
+            },
+            ausblenden: function () {
+                this.aNodeButtonSpeichernNeu.removeAttribute('class');
+                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large');
+            },
+            einblenden: function () {
+                this.aNodeButtonSpeichernNeu.removeAttribute('class');
+                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+            }
         },
 
         //--------------------------------------------------------------------------------
