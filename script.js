@@ -244,20 +244,8 @@
                 this.anzeigeNode.appendChild(aNodeList);
             }
             // Add Button erzeugen
-            const aNodeButtonAdd = document.createElement('a');
-            aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
-            aNodeButtonAdd.setAttribute('id', 'add');
-            const iNodeButtonAdd = document.createElement('i');
-            iNodeButtonAdd.setAttribute('class', 'material-icons');
-            const iNodeButtonAddText = document.createTextNode('+');
-            // Eventlistener Add Button
-            iNodeButtonAdd.addEventListener('click', function () {
-                presenter.btnAddClick();
-            });
-            // Add Button zusammensetzen
-            iNodeButtonAdd.appendChild(iNodeButtonAddText);
-            aNodeButtonAdd.appendChild(iNodeButtonAdd);
-            this.buttonNode.appendChild(aNodeButtonAdd);
+            view.erzeugeAddButton();
+
         },
         //----------------------------------------------------------------------------
         //------------------------------ view.renderOne ------------------------------
@@ -288,6 +276,7 @@
             const aNodeURL = document.createElement('a');
             aNodeURL.setAttribute('href', daten.url);
 
+
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
@@ -301,7 +290,6 @@
             aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
-
             // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
             if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
@@ -316,53 +304,12 @@
             this.anzeigeNode.appendChild(ulNode);
 
             // Edit Button erzeugen
-            const aNodeButtonEdit = document.createElement('a');
-            aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
-            aNodeButtonEdit.setAttribute('id', 'edit');
-            const iNodeButtonEdit = document.createElement('i');
-            iNodeButtonEdit.setAttribute('class', 'material-icons');
-            const iNodeButtonEditText = document.createTextNode('edit');
-            // Eventlistener Edit Button
-            iNodeButtonEdit.addEventListener('click', function () {
-                presenter.btnEditClick(daten, index);
-            });
-            // Edit Button zusammensetzen
-            iNodeButtonEdit.appendChild(iNodeButtonEditText);
-            aNodeButtonEdit.appendChild(iNodeButtonEdit);
-            this.buttonNode.appendChild(aNodeButtonEdit);
-
+            view.erzeugeEditButton(daten, index);
             // Del Button erzeugen
-            const aNodeButtonDel = document.createElement('a');
-            aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
-            aNodeButtonDel.setAttribute('id', 'del');
-            const iNodeButtonDel = document.createElement('i');
-            iNodeButtonDel.setAttribute('class', 'material-icons');
-            const iNodeButtonDelText = document.createTextNode('del');
-            // Eventlistener Del Button
-            iNodeButtonDel.addEventListener('click', function () {
-                presenter.btnDelClick(index);
-            });
-            // Del Button Del zusammensetzen
-            iNodeButtonDel.appendChild(iNodeButtonDelText);
-            aNodeButtonDel.appendChild(iNodeButtonDel);
-            this.buttonNode.appendChild(aNodeButtonDel);
-
+            view.erzeugeDelButton(index);
             // Back Button erzeugen
-            const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
-            aNodeButtonBack.setAttribute('id', 'back');
-            aNodeButtonBack.setAttribute('style', 'float:left');
-            const iNodeButtonBack = document.createElement('i');
-            iNodeButtonBack.setAttribute('class', 'material-icons');
-            const iNodeButtonBackText = document.createTextNode('back');
-            // Eventlistener Back Button
-            iNodeButtonBack.addEventListener('click', function () {
-                presenter.btnBackClick();
-            });
-            // Back Button Del zusammensetzen
-            iNodeButtonBack.appendChild(iNodeButtonBackText);
-            aNodeButtonBack.appendChild(iNodeButtonBack);
-            this.buttonNode.appendChild(aNodeButtonBack);
+            view.erzeugeBackButton();
+
         },
         //----------------------------------------------------------------------------
         //------------------------------ view.renderNew ------------------------------
@@ -419,22 +366,8 @@
             aNodeButtonSpeichernNeu.appendChild(iNodeButtonSpeichernNeu);
             this.buttonNode.appendChild(aNodeButtonSpeichernNeu);
 
-            // BackButton erzeugen
-            const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
-            aNodeButtonBack.setAttribute('id', 'back');
-            aNodeButtonBack.setAttribute('style', 'float:left');
-            const iNodeButtonBack = document.createElement('i');
-            iNodeButtonBack.setAttribute('class', 'material-icons');
-            const iNodeButtonBackText = document.createTextNode('back');
-            // EventlistenerBack Button
-            iNodeButtonBack.addEventListener('click', function () {
-                presenter.btnBackClick();
-            });
-            // BackButton Del zusammensetzen
-            iNodeButtonBack.appendChild(iNodeButtonBackText);
-            aNodeButtonBack.appendChild(iNodeButtonBack);
-            this.buttonNode.appendChild(aNodeButtonBack);
+            // Back Button erzeugen
+            view.erzeugeBackButton();
         },
         //-----------------------------------------------------------------------------
         //------------------------------ view.renderEdit ------------------------------
@@ -505,22 +438,8 @@
             aNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEdit);
             this.buttonNode.appendChild(aNodeButtonSpeichernEdit);
 
-            // BackButton erzeugen
-            const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
-            aNodeButtonBack.setAttribute('id', 'back');
-            aNodeButtonBack.setAttribute('style', 'float:left');
-            const iNodeButtonBack = document.createElement('i');
-            iNodeButtonBack.setAttribute('class', 'material-icons');
-            const iNodeButtonBackText = document.createTextNode('back');
-            // Eventlistener BackButton
-            iNodeButtonBack.addEventListener('click', function () {
-                presenter.btnBackClick();
-            });
-            // BackButton zusammensetzen
-            iNodeButtonBack.appendChild(iNodeButtonBackText);
-            aNodeButtonBack.appendChild(iNodeButtonBack);
-            this.buttonNode.appendChild(aNodeButtonBack);
+            // Back Button erzeugen
+            view.erzeugeBackButton();
         },
         //--------------------------------------------------------------------------
         //------------------------------ view.getNamefromForm ------------------------------
@@ -536,9 +455,9 @@
         setNameValue: function (daten) {
             this.inputName.value = daten.name;
         },
-        //-----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------
         //------------------------------ view.getAdressefromForm ------------------------------
-        //----------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------
         inputAdresse: null,
         getAdresse: function () {
             let adresse = this.inputAdresse.value;
@@ -591,7 +510,7 @@
             };
         },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeNamenFeld ------------------------
+        //------------------------------ view.erzeugeNamenFeld für New und Edit ------------------------
         //-----------------------------------------------------------------------------
         erzeugeNamenFeld: function () {
             // Name: Elemente erzeugen
@@ -616,7 +535,7 @@
             return divNodeRowName;
         },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeAdressFeld -----------------------
+        //------------------------------ view.erzeugeAdressFeld  für New und Edit -----------------------
         //-----------------------------------------------------------------------------
         erzeugeAdressFeld: function () {
             // Adresse: Elemente erzeugen
@@ -642,7 +561,7 @@
             return divNodeRowAdresse;
         },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeTelefonFeld ----------------------
+        //------------------------------ view.erzeugeTelefonFeld  für New und Edit----------------------
         //-----------------------------------------------------------------------------
         erzeugeTelefonFeld: function (daten) {
             // Telefon: Elemente erzeugen
@@ -668,7 +587,7 @@
             return divNodeRowTelefon;
         },
         //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeURLFeld --------------------------
+        //------------------------------ view.erzeugeURLFeld  für New und Edit--------------------------
         //-----------------------------------------------------------------------------
         erzeugeURLFeld: function (daten) {
             // URL: Elemente erzeugen
@@ -693,6 +612,84 @@
 
             return divNodeRowURL;
         },
+        //-----------------------------------------------------------------------------
+        //------------------------------ view.erzeugeAddButton ------------------------
+        //-----------------------------------------------------------------------------
+        erzeugeAddButton: function () {
+            const aNodeButtonAdd = document.createElement('a');
+            aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            aNodeButtonAdd.setAttribute('id', 'add');
+            const iNodeButtonAdd = document.createElement('i');
+            iNodeButtonAdd.setAttribute('class', 'material-icons');
+            const iNodeButtonAddText = document.createTextNode('+');
+            // Eventlistener Add Button
+            iNodeButtonAdd.addEventListener('click', function () {
+                presenter.btnAddClick();
+            });
+            // Add Button zusammensetzen
+            iNodeButtonAdd.appendChild(iNodeButtonAddText);
+            aNodeButtonAdd.appendChild(iNodeButtonAdd);
+            this.buttonNode.appendChild(aNodeButtonAdd);
+        },
+        //------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeBackButton ------------------------
+        //------------------------------------------------------------------------------
+        erzeugeBackButton: function () {
+            const aNodeButtonBack = document.createElement('a');
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
+            aNodeButtonBack.setAttribute('id', 'back');
+            aNodeButtonBack.setAttribute('style', 'float:left');
+            const iNodeButtonBack = document.createElement('i');
+            iNodeButtonBack.setAttribute('class', 'material-icons');
+            const iNodeButtonBackText = document.createTextNode('back');
+            // Eventlistener Back Button
+            iNodeButtonBack.addEventListener('click', function () {
+                presenter.btnBackClick();
+            });
+            // Back Button Del zusammensetzen
+            iNodeButtonBack.appendChild(iNodeButtonBackText);
+            aNodeButtonBack.appendChild(iNodeButtonBack);
+            this.buttonNode.appendChild(aNodeButtonBack);
+        },
+        //------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeEditButton ------------------------
+        //------------------------------------------------------------------------------
+        erzeugeEditButton: function (daten, index) {
+            const aNodeButtonEdit = document.createElement('a');
+            aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
+            aNodeButtonEdit.setAttribute('id', 'edit');
+            const iNodeButtonEdit = document.createElement('i');
+            iNodeButtonEdit.setAttribute('class', 'material-icons');
+            const iNodeButtonEditText = document.createTextNode('edit');
+            // Eventlistener Edit Button
+            iNodeButtonEdit.addEventListener('click', function () {
+                presenter.btnEditClick(daten, index);
+            });
+            // Edit Button zusammensetzen
+            iNodeButtonEdit.appendChild(iNodeButtonEditText);
+            aNodeButtonEdit.appendChild(iNodeButtonEdit);
+            this.buttonNode.appendChild(aNodeButtonEdit);
+        },
+        //------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeDelButton -------------------------
+        //------------------------------------------------------------------------------
+        erzeugeDelButton: function (index) {
+            const aNodeButtonDel = document.createElement('a');
+            aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
+            aNodeButtonDel.setAttribute('id', 'del');
+            const iNodeButtonDel = document.createElement('i');
+            iNodeButtonDel.setAttribute('class', 'material-icons');
+            const iNodeButtonDelText = document.createTextNode('del');
+            // Eventlistener Del Button
+            iNodeButtonDel.addEventListener('click', function () {
+                presenter.btnDelClick(index);
+            });
+            // Del Button Del zusammensetzen
+            iNodeButtonDel.appendChild(iNodeButtonDelText);
+            aNodeButtonDel.appendChild(iNodeButtonDel);
+            this.buttonNode.appendChild(aNodeButtonDel);
+        },
+
         //--------------------------------------------------------------------------------
         //------------------------------ view.disableButton ------------------------------
         //--------------------------------------------------------------------------------
@@ -739,8 +736,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    // presenter.init();
-    regServiceWorker();
+    presenter.init();
+    // regServiceWorker();
 
 
 })();
