@@ -299,6 +299,7 @@
             liNodeURL.setAttribute('class', 'collection-item grey lighten-4');
 
             const aNodeURL = document.createElement('a');
+            aNodeURL.setAttribute('rel','external');
             aNodeURL.setAttribute('href', daten.url);
 
 
@@ -791,8 +792,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    presenter.init();
-    // regServiceWorker();
+    // presenter.init();
+    regServiceWorker();
 
 
 })();
