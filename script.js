@@ -277,6 +277,9 @@
             const liNodeTelefon = document.createElement('li');
             liNodeTelefon.setAttribute('class', 'collection-item grey lighten-4');
 
+            const aNodeTelefon = document.createElement('a');
+            aNodeTelefon.setAttribute('href', daten.telefon);
+
             const liNodeURL = document.createElement('li');
             liNodeURL.setAttribute('class', 'collection-item grey lighten-4');
 
@@ -284,20 +287,22 @@
             aNodeURL.setAttribute('rel', 'external');
             aNodeURL.setAttribute('href', daten.url);
 
-
             const nameTextNode = document.createTextNode(daten.name);
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const urlTextNode = document.createTextNode(daten.url);
+            
+            aNodeTelefon.appendChild(telefonTextNode);
 
             liNodeName.appendChild(nameTextNode);
-            liNodeAdresse.appendChild(adresseTextNode);
-            liNodeTelefon.appendChild(telefonTextNode);
+            liNodeAdresse.appendChild(adresseTextNode);            
             liNodeURL.appendChild(urlTextNode);
-
+            liNodeTelefon.appendChild(aNodeTelefon);
+            
             aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
+
             // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
             if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
