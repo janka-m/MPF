@@ -140,6 +140,7 @@
         //------------------------------ presenter.btnEditSpeichernClick ------------------------------
         //---------------------------------------------------------------------------------------------
         btnEditSpeichernClick: function (index) {
+            console.log(index);
             // Daten aus dem Formular holen
             let eintrag = {};
             eintrag.name = view.getName();
@@ -165,7 +166,7 @@
             let daten = model.readAll();
             view.renderList(daten);
         },
-        //----------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------
         //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
         //------------------------------------------------------------------------------------------------
         buttonSpeichernNeuEinAus: function () {
@@ -176,7 +177,7 @@
             };
             view.buttonSpeichernNeu.einblenden();
         },
-        //----------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------
         //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
         //------------------------------------------------------------------------------------------------
         buttonSpeichernEditEinAus: function () {
@@ -186,26 +187,7 @@
                 return;
             };
             view.buttonSpeichernEdit.einblenden();
-        },
-
-
-
-        //------------------------------------------------------------------------------------
-        //------------------------------ presenter.enableButton ------------------------------
-        //------------------------------------------------------------------------------------
-        enableButton: function (element) {
-            switch (view.getName()) {
-                case "":
-                    view.disableButton(element);
-                    break;
-                case " ":
-                    view.disableButton(element);
-                    break;
-                default:
-                    view.enableButton(element);
-                    break;
-            }
-        },
+        }
     };
     //======================================================================================
     //======================================== View ========================================
@@ -299,7 +281,7 @@
             liNodeURL.setAttribute('class', 'collection-item grey lighten-4');
 
             const aNodeURL = document.createElement('a');
-            aNodeURL.setAttribute('rel','external');
+            aNodeURL.setAttribute('rel', 'external');
             aNodeURL.setAttribute('href', daten.url);
 
 
@@ -335,7 +317,6 @@
             view.erzeugeDelButton(index);
             // Back Button erzeugen
             view.erzeugeBackButton();
-
         },
         //----------------------------------------------------------------------------
         //------------------------------ view.renderNew ------------------------------
@@ -434,15 +415,16 @@
                 presenter.buttonSpeichernEditEinAus()
             }, true);
 
-            // EditSpeichern Button erzeugen
+            // EditSpeichern Button Index setzen und erzeugen
             view.buttonSpeichernEdit.erzeugen(index);
+
 
             // Back Button erzeugen
             view.erzeugeBackButton();
         },
-        //--------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         //------------------------------ view.getNamefromForm ------------------------------
-        //--------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         inputName: null,
         getName: function () {
             let name = this.inputName.value;
@@ -490,9 +472,9 @@
                 this.inputTelefon.value = "";
             };
         },
-        //-----------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
         //------------------------------ view.getURLfromForm ------------------------------
-        //-------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
         inputURL: null,
         getURL: function () {
             let url = this.inputURL.value;
@@ -508,9 +490,9 @@
                 this.inputURL.value = "";
             };
         },
-        //-----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------
         //------------------------------ view.erzeugeNamenFeld für New und Edit ------------------------
-        //-----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------
         erzeugeNamenFeld: function () {
             // Name: Elemente erzeugen
             const divNodeRowName = document.createElement('div');
@@ -533,9 +515,9 @@
 
             return divNodeRowName;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeAdressFeld  für New und Edit -----------------------
-        //-----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeAdressFeld für New und Edit -----------------------
+        //----------------------------------------------------------------------------------------------
         erzeugeAdressFeld: function () {
             // Adresse: Elemente erzeugen
             const divNodeRowAdresse = document.createElement('div');
@@ -559,9 +541,9 @@
 
             return divNodeRowAdresse;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeTelefonFeld  für New und Edit----------------------
-        //-----------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeTelefonFeld für New und Edit -----------------------
+        //-----------------------------------------------------------------------------------------------
         erzeugeTelefonFeld: function (daten) {
             // Telefon: Elemente erzeugen
             const divNodeRowTelefon = document.createElement('div');
@@ -585,9 +567,9 @@
 
             return divNodeRowTelefon;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeURLFeld  für New und Edit--------------------------
-        //-----------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------
+        //------------------------------ view.erzeugeURLFeld  für New und Edit --------------------------
+        //-----------------------------------------------------------------------------------------------
         erzeugeURLFeld: function (daten) {
             // URL: Elemente erzeugen
             const divNodeRowURL = document.createElement('div');
@@ -717,12 +699,14 @@
                 this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
             }
         },
-        //------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         //------------------------------ view.buttonSpeichernEdit -----------------------
-        //------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------
         buttonSpeichernEdit: {
+            index: null,
             aNodeButtonSpeichernEdit: document.createElement('a'),
             erzeugen: function (index) {
+                this.index = index;
                 this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
                 this.aNodeButtonSpeichernEdit.setAttribute('id', 'speichernEdit');
                 const iNodeButtonSpeichernEdit = document.createElement('i');
@@ -730,13 +714,13 @@
                 const iNodeButtonSpeichernEditText = document.createTextNode('+');
                 // Eventlistener EditSpeichernButton
                 iNodeButtonSpeichernEdit.addEventListener('click', function () {
-                    presenter.btnEditSpeichernClick(index);
+                    presenter.btnEditSpeichernClick(view.buttonSpeichernEdit.index);
                 });
                 // EditSpeichernButton zusammensetzen
                 iNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEditText);
                 this.aNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEdit);
-                view.buttonNode.appendChild(this.aNodeButtonSpeichernEdit);
-            },
+                view.buttonNode.appendChild(this.aNodeButtonSpeichernEdit);    
+            },            
             ausblenden: function () {
                 this.aNodeButtonSpeichernEdit.removeAttribute('class');
                 this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating disabled btn-large');
@@ -744,32 +728,8 @@
             einblenden: function () {
                 this.aNodeButtonSpeichernEdit.removeAttribute('class');
                 this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
-            },
-        },
-        //--------------------------------------------------------------------------------
-        //------------------------------ view.disableButton ------------------------------
-        //--------------------------------------------------------------------------------
-        disableButton: function (element) {
-            element.removeAttribute('class');
-            element.setAttribute('class', 'btn-floating disabled btn-large');
-        },
-        //-------------------------------------------------------------------------------
-        //------------------------------ view.enableButton ------------------------------
-        //-------------------------------------------------------------------------------
-        enableButton: function (element) {
-            element.removeAttribute('class');
-            switch (element.id) {
-                case "speichernNew":
-                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
-                    break;
-                case "speichernEdit":
-                    element.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
-                    break;
-                default:
-                    break;
             }
         }
-
     };
     //==================================================================================
     //========================== Data Access Object ====================================
@@ -792,8 +752,8 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    // presenter.init();
-    regServiceWorker();
+    presenter.init();
+    // regServiceWorker();
 
 
 })();
