@@ -170,7 +170,7 @@
         //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
         //------------------------------------------------------------------------------------------------
         buttonSpeichernNeuEinAus: function () {
-            const textString = view.getName().trim();
+            const textString = view.getName();
             if (textString == "") {
                 view.buttonSpeichernNeu.ausblenden();
                 return;
@@ -181,7 +181,7 @@
         //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
         //------------------------------------------------------------------------------------------------
         buttonSpeichernEditEinAus: function () {
-            const textString = view.getName().trim();
+            const textString = view.getName();
             if (textString == "") {
                 view.buttonSpeichernEdit.ausblenden();
                 return;
@@ -221,7 +221,6 @@
             const date = new Date();
             const dateTextNode = document.createTextNode(date.toUTCString());
             this.dateVersionNode.appendChild(dateTextNode);
-
         },
         //-----------------------------------------------------------------------------
         //------------------------------ view.renderList ------------------------------
@@ -252,7 +251,6 @@
             }
             // Add Button erzeugen
             view.erzeugeAddButton();
-
         },
         //----------------------------------------------------------------------------
         //------------------------------ view.renderOne ------------------------------
@@ -432,7 +430,7 @@
         //----------------------------------------------------------------------------------
         inputName: null,
         getName: function () {
-            let name = this.inputName.value;
+            let name = this.inputName.value.trim();
             return name;
         },
         //---------------------------------------------------------------------------
@@ -446,7 +444,7 @@
         //-------------------------------------------------------------------------------------
         inputAdresse: null,
         getAdresse: function () {
-            let adresse = this.inputAdresse.value;
+            let adresse = this.inputAdresse.value.trim();
             return adresse;
         },
         //--------------------------------------------------------------------------
@@ -464,7 +462,7 @@
         //-----------------------------------------------------------------------------
         inputTelefon: null,
         getTelefon: function () {
-            let telefon = this.inputTelefon.value;
+            let telefon = this.inputTelefon.value.trim();
             return telefon;
         },
         //-----------------------------------------------------------------------------
@@ -482,7 +480,7 @@
         //---------------------------------------------------------------------------------
         inputURL: null,
         getURL: function () {
-            let url = this.inputURL.value;
+            let url = this.inputURL.value.trim();
             return url;
         },
         //-----------------------------------------------------------------------------
