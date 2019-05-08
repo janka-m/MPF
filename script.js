@@ -140,7 +140,6 @@
         //------------------------------ presenter.btnEditSpeichernClick ------------------------------
         //---------------------------------------------------------------------------------------------
         btnEditSpeichernClick: function (index) {
-            console.log(index);
             // Daten aus dem Formular holen
             let eintrag = {};
             eintrag.name = view.getName();
@@ -156,6 +155,7 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
+            presenter.checkEingabe(view.getURL());
         },
         //-----------------------------------------------------------------------------------
         //------------------------------ presenter.btnDelClick ------------------------------
@@ -187,6 +187,33 @@
                 return;
             };
             view.buttonSpeichernEdit.einblenden();
+        },
+        //------------------------------------------------------------------------------------------------------
+        //------------------------------ presenter.checkEingabe --------------------------------------
+        //------------------------------------------------------------------------------------------------------
+        checkEingabe: function (string) {
+            const eingabe = string;
+            const substringHttp = eingabe.substring(0, 7);
+            const substringHttps = eingabe.substring(0, 8);
+            const substringWWW = eingabe.substring(0, 4);
+            
+            
+            let ausgabe = "";
+            
+            if (substringHttp != 'http') {
+                console.log('ungleich HTTP');
+
+            };
+            if (substringHttps != 'https') {
+                console.log('ungleich HTTPS');
+        
+            };
+            if (substringWWW != 'www') {
+                console.log('ungleich www');
+        
+            };
+
+
         }
     };
     //======================================================================================
@@ -276,7 +303,7 @@
             liNodeTelefon.setAttribute('class', 'collection-item grey lighten-4');
 
             const aNodeTelefon = document.createElement('a');
-            aNodeTelefon.setAttribute('href', daten.telefon);
+            aNodeTelefon.setAttribute('href', 'tel:' + daten.telefon);
 
             const liNodeURL = document.createElement('li');
             liNodeURL.setAttribute('class', 'collection-item grey lighten-4');
@@ -289,14 +316,14 @@
             const adresseTextNode = document.createTextNode(daten.adresse);
             const telefonTextNode = document.createTextNode(daten.telefon);
             const urlTextNode = document.createTextNode(daten.url);
-            
+
             aNodeTelefon.appendChild(telefonTextNode);
 
             liNodeName.appendChild(nameTextNode);
-            liNodeAdresse.appendChild(adresseTextNode);            
+            liNodeAdresse.appendChild(adresseTextNode);
             liNodeURL.appendChild(urlTextNode);
             liNodeTelefon.appendChild(aNodeTelefon);
-            
+
             aNodeURL.appendChild(liNodeURL);
 
             ulNode.appendChild(liNodeName);
@@ -722,8 +749,8 @@
                 // EditSpeichernButton zusammensetzen
                 iNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEditText);
                 this.aNodeButtonSpeichernEdit.appendChild(iNodeButtonSpeichernEdit);
-                view.buttonNode.appendChild(this.aNodeButtonSpeichernEdit);    
-            },            
+                view.buttonNode.appendChild(this.aNodeButtonSpeichernEdit);
+            },
             ausblenden: function () {
                 this.aNodeButtonSpeichernEdit.removeAttribute('class');
                 this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating disabled btn-large');
