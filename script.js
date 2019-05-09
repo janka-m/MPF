@@ -114,7 +114,7 @@
             let name = view.getName();
             let adresse = view.getAdresse();
             let telefon = view.getTelefon();
-            let url = view.getURL();
+            let url = presenter.checkEingabe(view.getURL());
 
             // Neue Daten der Liste hinzufügen
             model.create({
@@ -145,7 +145,7 @@
             eintrag.name = view.getName();
             eintrag.adresse = view.getAdresse();
             eintrag.telefon = view.getTelefon();
-            eintrag.url = view.getURL();
+            eintrag.url = presenter.checkEingabe(view.getURL());
 
             // alten Datensatz überschreiben
             model.update(eintrag, index);
@@ -155,7 +155,7 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
-            presenter.checkEingabe(view.getURL());
+            
         },
         //-----------------------------------------------------------------------------------
         //------------------------------ presenter.btnDelClick ------------------------------
@@ -193,27 +193,24 @@
         //------------------------------------------------------------------------------------------------------
         checkEingabe: function (string) {
             const eingabe = string;
-            const substringHttp = eingabe.substring(0, 7);
-            const substringHttps = eingabe.substring(0, 8);
-            const substringWWW = eingabe.substring(0, 4);
-            
-            
-            let ausgabe = "";
-            
-            if (substringHttp != 'http') {
-                console.log('ungleich HTTP');
+            const subStringHttp = eingabe.substring(0, 7);
+            const subStringHttps = eingabe.substring(0, 8);
+            const subStringWWW = eingabe.substring(0, 4);
 
-            };
-            if (substringHttps != 'https') {
-                console.log('ungleich HTTPS');
-        
-            };
-            if (substringWWW != 'www') {
-                console.log('ungleich www');
-        
-            };
-
-
+            switch (true) {
+                case (subStringHttp === 'http://'):
+                    return eingabe;
+                    //break;
+                case (subStringHttps === 'https://'):
+                    return eingabe;
+                    //break;
+                case (subStringWWW === 'www.'):
+                    return 'https://'+eingabe;
+                    //break;
+                default:
+                    return 'https://' + eingabe;
+                    //break;
+            }; 
         }
     };
     //======================================================================================
@@ -328,6 +325,7 @@
 
             ulNode.appendChild(liNodeName);
 
+
             // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
             if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
@@ -335,7 +333,7 @@
             if (daten.telefon != undefined && daten.telefon != "") {
                 ulNode.appendChild(liNodeTelefon);
             };
-            if (daten.url != undefined && daten.url != "") {
+            if (daten.url != undefined && daten.url != "https://") {
                 ulNode.appendChild(aNodeURL);
             };
 
