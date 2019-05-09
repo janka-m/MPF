@@ -3,75 +3,60 @@
     //================================================================================================
     //======================================== Service Worker ========================================
     //================================================================================================
-    //--------------------------------------------------------------------------------------------
-    //------------------------------ serviceWorker.regServiceWorker ------------------------------
-    //--------------------------------------------------------------------------------------------
+    
+    //======================================== serviceWorker.regServiceWorker ========================================
     const regServiceWorker = function () {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('./service-worker.js')
                 .then(function () {
                     console.log('Service Worker wurde registriert');
-                    presenter.setDateVersion();
                 });
         } else {
             console.log('Browser bietet keine Unterstützung für Service Worker');
         }
         presenter.init();
-
     };
+
     //=======================================================================================
     //======================================== Model ========================================
     //=======================================================================================
     const model = {
         datenArray: [],
-        //------------------------------------------------------------------------
-        //------------------------------ model.init ------------------------------
-        //------------------------------------------------------------------------
+        //======================================== model.init ========================================
         init: function () {
             this.datenArray = dao.lesen();
         },
-        //--------------------------------------------------------------------------
-        //------------------------------ model.Create ------------------------------
-        //--------------------------------------------------------------------------
+        //======================================== model.Create ========================================
         create: function (eintrag) {
             this.datenArray.push(eintrag);
             dao.schreiben(this.datenArray);
         },
-        //---------------------------------------------------------------------------
-        //------------------------------ model.readAll ------------------------------
-        //---------------------------------------------------------------------------
+        //======================================== model.readAll ========================================
         readAll: function () {
             return this.datenArray;
         },
-        //---------------------------------------------------------------------------
-        //------------------------------ model.readOne ------------------------------
-        //---------------------------------------------------------------------------
+        //======================================== model.readOne ========================================
         readOne: function (index) {
             return this.datenArray[index];
         },
-        //--------------------------------------------------------------------------
-        //------------------------------ model.update ------------------------------
-        //--------------------------------------------------------------------------
+        //======================================== model.update ========================================
         update: function (eintrag, index) {
             this.datenArray[index] = eintrag;
             dao.schreiben(this.datenArray);
         },
-        //--------------------------------------------------------------------------
-        //------------------------------ model.delete ------------------------------
-        //--------------------------------------------------------------------------
+        //======================================== model.delete ========================================
         delete: function (index) {
             this.datenArray.splice(index, 1);
             dao.schreiben(this.datenArray);
         }
     };
+
     //===========================================================================================
     //======================================== Presenter ========================================
     //===========================================================================================
     const presenter = {
-        //----------------------------------------------------------------------------
-        //------------------------------ presenter.init ------------------------------
-        //----------------------------------------------------------------------------
+        //======================================== presenter.init ========================================
         init: function () {
             // Daten vom LocalStorage aktualisieren
             model.init();
@@ -79,49 +64,39 @@
             // Daten (Restaurants) ausgeben
             view.init();
             view.renderList(daten);
+            view.renderDatum(daten[daten.length - 1].datum);
         },
-        //--------------------------------------------------------------------------------------
-        //------------------------------ presenter.setDateVersion ------------------------------
-        //--------------------------------------------------------------------------------------
-        setDateVersion: function () {
-            view.setDateVersion();
-        },
-        //----------------------------------------------------------------------------------------
-        //------------------------------ presenter.listElementClick ------------------------------
-        //----------------------------------------------------------------------------------------
+        //======================================== presenter.listElementClick ========================================
         listElementClick: function (index) {
             let daten = model.readOne(index);
             view.renderOne(daten, index);
         },
-        //------------------------------------------------------------------------------------
-        //------------------------------ presenter.btnBackClick ------------------------------
-        //------------------------------------------------------------------------------------
+        //======================================== presenter.btnBackClick ========================================
         btnBackClick: function () {
             let daten = model.readAll();
             view.renderList(daten);
+            view.renderDatum(daten[daten.length - 1].datum);
         },
-        //-----------------------------------------------------------------------------------
-        //------------------------------ presenter.btnAddClick ------------------------------
-        //-----------------------------------------------------------------------------------
+        //======================================== presenter.btnAddClick ========================================
         btnAddClick: function () {
             view.renderNew();
         },
-        //--------------------------------------------------------------------------------------------
-        //------------------------------ presenter.btnAddSpeichernClick ------------------------------
-        //--------------------------------------------------------------------------------------------
+        //======================================== presenter.btnAddSpeichernClick ========================================
         btnAddSpeichernClick: function () {
             // Daten aus dem Formular holen
             let name = view.getName();
             let adresse = view.getAdresse();
             let telefon = view.getTelefon();
             let url = presenter.checkEingabe(view.getURL());
+            let datum = view.getDatum();
 
             // Neue Daten der Liste hinzufügen
             model.create({
                 'name': name,
                 'adresse': adresse,
                 'telefon': telefon,
-                'url': url
+                'url': url,
+                'datum': datum
             });
 
             // Daten erneut holen
@@ -129,16 +104,13 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
+            view.renderDatum(daten[daten.length - 1].datum);
         },
-        //------------------------------------------------------------------------------------
-        //------------------------------ presenter.btnEditClick ------------------------------
-        //------------------------------------------------------------------------------------
+        //======================================== presenter.btnEditClick ========================================
         btnEditClick: function (daten, index) {
             view.renderEdit(daten, index);
         },
-        //---------------------------------------------------------------------------------------------
-        //------------------------------ presenter.btnEditSpeichernClick ------------------------------
-        //---------------------------------------------------------------------------------------------
+        //======================================== presenter.btnEditSpeichernClick ========================================
         btnEditSpeichernClick: function (index) {
             // Daten aus dem Formular holen
             let eintrag = {};
@@ -146,6 +118,7 @@
             eintrag.adresse = view.getAdresse();
             eintrag.telefon = view.getTelefon();
             eintrag.url = presenter.checkEingabe(view.getURL());
+            eintrag.datum = view.getDatum();
 
             // alten Datensatz überschreiben
             model.update(eintrag, index);
@@ -155,20 +128,18 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
-            
+            view.renderDatum(daten[daten.length - 1].datum);
+
         },
-        //-----------------------------------------------------------------------------------
-        //------------------------------ presenter.btnDelClick ------------------------------
-        //-----------------------------------------------------------------------------------
+        //======================================== presenter.btnDelClick ========================================
         btnDelClick: function (index) {
             // Datensatz löschen
             model.delete(index);
             let daten = model.readAll();
             view.renderList(daten);
+            view.renderDatum(daten[daten.length - 1].datum);
         },
-        //------------------------------------------------------------------------------------------------
-        //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
-        //------------------------------------------------------------------------------------------------
+        //======================================== presenter.buttonSpeichernNeuEinAus 
         buttonSpeichernNeuEinAus: function () {
             const textString = view.getName();
             if (textString == "") {
@@ -177,9 +148,7 @@
             };
             view.buttonSpeichernNeu.einblenden();
         },
-        //------------------------------------------------------------------------------------------------
-        //------------------------------ presenter.buttonSpeichernNeuEinAus ------------------------------
-        //------------------------------------------------------------------------------------------------
+        //======================================== presenter.buttonSpeichernNeuEinAus ========================================
         buttonSpeichernEditEinAus: function () {
             const textString = view.getName();
             if (textString == "") {
@@ -188,14 +157,12 @@
             };
             view.buttonSpeichernEdit.einblenden();
         },
-        //------------------------------------------------------------------------------------------------------
-        //------------------------------ presenter.checkEingabe ------------------------------------------------
-        //------------------------------------------------------------------------------------------------------
+        //======================================== presenter.checkEingabe ========================================
         checkEingabe: function (string) {
             const eingabe = string;
             const subStringHttp = eingabe.substring(0, 7);
             const subStringHttps = eingabe.substring(0, 8);
-            
+
             switch (true) {
                 case (subStringHttp === 'http://'):
                     return eingabe;
@@ -206,27 +173,24 @@
                 default:
                     return 'https://' + eingabe;
                     //break;
-            }; 
+            };
         }
     };
+
     //======================================================================================
     //======================================== View ========================================
     //======================================================================================
     const view = {
         anzeigeNode: null,
         buttonNode: null,
-        dateVersionNode: null,
-        //-----------------------------------------------------------------------
-        //------------------------------ view.init ------------------------------
-        //-----------------------------------------------------------------------
+        datumsNode: null,
+        //======================================== view.init ========================================
         init: function () {
             this.anzeigeNode = document.getElementById('anzeige');
             this.buttonNode = document.getElementById('button');
-            this.dateVersionNode = document.getElementById('dateVersion')
+            this.datumsNode = document.getElementById('datumDatenstand');
         },
-        //---------------------------------------------------------------------------
-        //------------------------------ view.loeschen ------------------------------
-        //---------------------------------------------------------------------------
+        //======================================== view.loeschen ========================================
         loeschen: function (node) {
             while (node.firstChild) {
                 node.removeChild(node.firstChild);
@@ -234,17 +198,13 @@
             node.removeAttribute('class');
             node.removeAttribute('style');
         },
-        //---------------------------------------------------------------------------------
-        //------------------------------ view.setDateVersion ------------------------------
-        //---------------------------------------------------------------------------------
-        setDateVersion: function () {
-            const date = new Date();
-            const dateTextNode = document.createTextNode(date.toUTCString());
-            this.dateVersionNode.appendChild(dateTextNode);
+        //======================================== view.renderDatum ========================================
+        renderDatum: function (datum) {
+            view.loeschen(this.datumsNode);
+            const datumsTextNode = document.createTextNode(datum);
+            this.datumsNode.appendChild(datumsTextNode);
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.renderList ------------------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.renderList ========================================
         renderList: function (daten) {
             // Gesamte View löschen 
             view.loeschen(this.anzeigeNode);
@@ -272,9 +232,7 @@
             // Add Button erzeugen
             view.erzeugeAddButton();
         },
-        //----------------------------------------------------------------------------
-        //------------------------------ view.renderOne ------------------------------
-        //----------------------------------------------------------------------------
+        //======================================== view.renderOne ========================================
         renderOne: function (daten, index) {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
@@ -321,7 +279,6 @@
 
             ulNode.appendChild(liNodeName);
 
-
             // wenn leere Einträge im Model vorhanden sind werden diese nicht angezeigt
             if (daten.adresse != undefined && daten.adresse != "") {
                 ulNode.appendChild(liNodeAdresse);
@@ -342,9 +299,7 @@
             // Back Button erzeugen
             view.erzeugeBackButton();
         },
-        //----------------------------------------------------------------------------
-        //------------------------------ view.renderNew ------------------------------
-        //----------------------------------------------------------------------------
+        //======================================== view.renderNew ========================================
         renderNew: function () {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
@@ -386,9 +341,7 @@
             // Back Button erzeugen
             view.erzeugeBackButton();
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.renderEdit ------------------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.renderEdit ========================================
         renderEdit: function (daten, index) {
             // gesamte View löschen
             view.loeschen(this.anzeigeNode);
@@ -418,7 +371,6 @@
             // URLFeld
             view.setURLValue(daten);
 
-
             // Einzelne Felder zur FormNode hinzufügen
             formNode.appendChild(namenFeld);
             formNode.appendChild(adressFeld);
@@ -442,35 +394,26 @@
             // EditSpeichern Button Index setzen und erzeugen
             view.buttonSpeichernEdit.erzeugen(index);
 
-
             // Back Button erzeugen
             view.erzeugeBackButton();
         },
-        //----------------------------------------------------------------------------------
-        //------------------------------ view.getNamefromForm ------------------------------
-        //----------------------------------------------------------------------------------
+        //======================================== view.getNamefromForm ========================================
         inputName: null,
         getName: function () {
             let name = this.inputName.value.trim();
             return name;
         },
-        //---------------------------------------------------------------------------
-        //------------------------------ view.setNameinForm -------------------------
-        //---------------------------------------------------------------------------
+        //======================================== view.setNameinForm ========================================
         setNameValue: function (daten) {
             this.inputName.value = daten.name;
         },
-        //-------------------------------------------------------------------------------------
-        //------------------------------ view.getAdressefromForm ------------------------------
-        //-------------------------------------------------------------------------------------
+        //======================================== view.getAdressefromForm ========================================
         inputAdresse: null,
         getAdresse: function () {
             let adresse = this.inputAdresse.value.trim();
             return adresse;
         },
-        //--------------------------------------------------------------------------
-        //------------------------------ view.setAdresseinForm ---------------------
-        //--------------------------------------------------------------------------
+        //======================================== view.setAdresseinForm ========================================
         setAdresseValue: function (daten) {
             if (daten.adresse != undefined) {
                 this.inputAdresse.value = daten.adresse;
@@ -478,17 +421,13 @@
                 this.inputAdresse.value = "";
             };
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.getTelefonfromForm ----------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.getTelefonfromForm ========================================
         inputTelefon: null,
         getTelefon: function () {
             let telefon = this.inputTelefon.value.trim();
             return telefon;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.setTelefoninForm ------------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.setTelefoninForm ========================================
         setTelefonValue: function (daten) {
             if (daten.telefon != undefined) {
                 this.inputTelefon.value = daten.telefon;
@@ -496,17 +435,13 @@
                 this.inputTelefon.value = "";
             };
         },
-        //---------------------------------------------------------------------------------
-        //------------------------------ view.getURLfromForm ------------------------------
-        //---------------------------------------------------------------------------------
+        //======================================== view.getURLfromForm ========================================
         inputURL: null,
         getURL: function () {
             let url = this.inputURL.value.trim();
             return url;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.setURLinForm ----------------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.setURLinForm ========================================
         setURLValue: function (daten) {
             if (daten.url != undefined) {
                 this.inputURL.value = daten.url;
@@ -514,9 +449,12 @@
                 this.inputURL.value = "";
             };
         },
-        //----------------------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeNamenFeld für New und Edit ------------------------
-        //----------------------------------------------------------------------------------------------
+        //======================================== view.getDatum - Wird immer automatisch erzeugt ========================================
+        getDatum: function () {
+            const datum = new Date();
+            return datum.toLocaleString();
+        },
+        //======================================== view.erzeugeNamenFeld für New und Edit ========================================
         erzeugeNamenFeld: function () {
             // Name: Elemente erzeugen
             const divNodeRowName = document.createElement('div');
@@ -539,9 +477,7 @@
 
             return divNodeRowName;
         },
-        //----------------------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeAdressFeld für New und Edit -----------------------
-        //----------------------------------------------------------------------------------------------
+        //======================================== view.erzeugeAdressFeld für New und Edit ========================================
         erzeugeAdressFeld: function () {
             // Adresse: Elemente erzeugen
             const divNodeRowAdresse = document.createElement('div');
@@ -565,9 +501,7 @@
 
             return divNodeRowAdresse;
         },
-        //-----------------------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeTelefonFeld für New und Edit -----------------------
-        //-----------------------------------------------------------------------------------------------
+        //======================================== view.erzeugeTelefonFeld für New und Edit ========================================
         erzeugeTelefonFeld: function (daten) {
             // Telefon: Elemente erzeugen
             const divNodeRowTelefon = document.createElement('div');
@@ -591,9 +525,7 @@
 
             return divNodeRowTelefon;
         },
-        //-----------------------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeURLFeld  für New und Edit --------------------------
-        //-----------------------------------------------------------------------------------------------
+        //======================================== view.erzeugeURLFeld  für New und Edit ========================================
         erzeugeURLFeld: function (daten) {
             // URL: Elemente erzeugen
             const divNodeRowURL = document.createElement('div');
@@ -617,9 +549,7 @@
 
             return divNodeRowURL;
         },
-        //-----------------------------------------------------------------------------
-        //------------------------------ view.erzeugeAddButton ------------------------
-        //-----------------------------------------------------------------------------
+        //======================================== view.erzeugeAddButton ========================================
         erzeugeAddButton: function () {
             const aNodeButtonAdd = document.createElement('a');
             aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
@@ -636,9 +566,7 @@
             aNodeButtonAdd.appendChild(iNodeButtonAdd);
             this.buttonNode.appendChild(aNodeButtonAdd);
         },
-        //------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeBackButton ------------------------
-        //------------------------------------------------------------------------------
+        //======================================== view.erzeugeBackButton ========================================
         erzeugeBackButton: function () {
             const aNodeButtonBack = document.createElement('a');
             aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
@@ -656,9 +584,7 @@
             aNodeButtonBack.appendChild(iNodeButtonBack);
             this.buttonNode.appendChild(aNodeButtonBack);
         },
-        //------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeEditButton ------------------------
-        //------------------------------------------------------------------------------
+        //======================================== view.erzeugeEditButton ========================================
         erzeugeEditButton: function (daten, index) {
             const aNodeButtonEdit = document.createElement('a');
             aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
@@ -675,9 +601,7 @@
             aNodeButtonEdit.appendChild(iNodeButtonEdit);
             this.buttonNode.appendChild(aNodeButtonEdit);
         },
-        //------------------------------------------------------------------------------
-        //------------------------------ view.erzeugeDelButton -------------------------
-        //------------------------------------------------------------------------------
+        //======================================== view.erzeugeDelButton ========================================
         erzeugeDelButton: function (index) {
             const aNodeButtonDel = document.createElement('a');
             aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
@@ -694,9 +618,7 @@
             aNodeButtonDel.appendChild(iNodeButtonDel);
             this.buttonNode.appendChild(aNodeButtonDel);
         },
-        //------------------------------------------------------------------------------
-        //------------------------------ view.buttonSpeichernNeu -----------------------
-        //------------------------------------------------------------------------------
+        //======================================== view.buttonSpeichernNeu ========================================
         buttonSpeichernNeu: {
             aNodeButtonSpeichernNeu: document.createElement('a'),
             erzeugen: function () {
@@ -723,9 +645,7 @@
                 this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
             }
         },
-        //-------------------------------------------------------------------------------
-        //------------------------------ view.buttonSpeichernEdit -----------------------
-        //-------------------------------------------------------------------------------
+        //======================================== view.buttonSpeichernEdit ========================================
         buttonSpeichernEdit: {
             index: null,
             aNodeButtonSpeichernEdit: document.createElement('a'),
@@ -755,6 +675,7 @@
             }
         }
     };
+
     //==================================================================================
     //========================== Data Access Object ====================================
     //==================================================================================
@@ -778,6 +699,5 @@
     //===================================================================
     // presenter.init();
     regServiceWorker();
-
 
 })();
