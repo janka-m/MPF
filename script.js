@@ -49,6 +49,14 @@
         delete: function (index) {
             this.datenArray.splice(index, 1);
             dao.schreiben(this.datenArray);
+        },
+        //======================================== model.getDatum ========================================
+        getDatum: function(){
+            if (this.datenArray[this.datenArray.length -1] != undefined && this.datenArray[this.datenArray.length -1].datum != "") {
+                return this.datenArray[this.datenArray.length -1].datum;
+            } else {
+                return 'Keine Daten vorhanden!';
+            }
         }
     };
 
@@ -64,7 +72,9 @@
             // Daten (Restaurants) ausgeben
             view.init();
             view.renderList(daten);
-            view.renderDatum(daten[daten.length - 1].datum);
+            view.renderDatum(model.getDatum());
+            
+           
         },
         //======================================== presenter.listElementClick ========================================
         listElementClick: function (index) {
@@ -75,7 +85,7 @@
         btnBackClick: function () {
             let daten = model.readAll();
             view.renderList(daten);
-            view.renderDatum(daten[daten.length - 1].datum);
+            view.renderDatum(model.getDatum());
         },
         //======================================== presenter.btnAddClick ========================================
         btnAddClick: function () {
@@ -104,7 +114,7 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
-            view.renderDatum(daten[daten.length - 1].datum);
+            view.renderDatum(model.getDatum());
         },
         //======================================== presenter.btnEditClick ========================================
         btnEditClick: function (daten, index) {
@@ -128,7 +138,7 @@
 
             // Liste erneut anzeigen mit neuen Daten;
             view.renderList(daten);
-            view.renderDatum(daten[daten.length - 1].datum);
+            view.renderDatum(model.getDatum());
 
         },
         //======================================== presenter.btnDelClick ========================================
@@ -137,7 +147,7 @@
             model.delete(index);
             let daten = model.readAll();
             view.renderList(daten);
-            view.renderDatum(daten[daten.length - 1].datum);
+            view.renderDatum(model.getDatum());
         },
         //======================================== presenter.buttonSpeichernNeuEinAus 
         buttonSpeichernNeuEinAus: function () {
@@ -697,7 +707,7 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    presenter.init();
-    // regServiceWorker();
+    // presenter.init();
+    regServiceWorker();
 
 })();
