@@ -556,7 +556,7 @@
             aNodeButtonAdd.setAttribute('id', 'add');
             const iNodeButtonAdd = document.createElement('i');
             iNodeButtonAdd.setAttribute('class', 'material-icons');
-            const iNodeButtonAddText = document.createTextNode('+');
+            const iNodeButtonAddText = document.createTextNode('\uFF0B');
             // Eventlistener Add Button
             iNodeButtonAdd.addEventListener('click', function () {
                 presenter.btnAddClick();
@@ -574,7 +574,7 @@
             aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
             iNodeButtonBack.setAttribute('class', 'material-icons');
-            const iNodeButtonBackText = document.createTextNode('back');
+            const iNodeButtonBackText = document.createTextNode('\u2B05');
             // Eventlistener Back Button
             iNodeButtonBack.addEventListener('click', function () {
                 presenter.btnBackClick();
@@ -591,7 +591,7 @@
             aNodeButtonEdit.setAttribute('id', 'edit');
             const iNodeButtonEdit = document.createElement('i');
             iNodeButtonEdit.setAttribute('class', 'material-icons');
-            const iNodeButtonEditText = document.createTextNode('edit');
+            const iNodeButtonEditText = document.createTextNode('\u270E');
             // Eventlistener Edit Button
             iNodeButtonEdit.addEventListener('click', function () {
                 presenter.btnEditClick(daten, index);
@@ -608,7 +608,7 @@
             aNodeButtonDel.setAttribute('id', 'del');
             const iNodeButtonDel = document.createElement('i');
             iNodeButtonDel.setAttribute('class', 'material-icons');
-            const iNodeButtonDelText = document.createTextNode('del');
+            const iNodeButtonDelText = document.createTextNode('\u2716');
             // Eventlistener Del Button
             iNodeButtonDel.addEventListener('click', function () {
                 presenter.btnDelClick(index);
@@ -626,7 +626,7 @@
                 this.aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
                 const iNodeButtonSpeichernNeu = document.createElement('i');
                 iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
-                const iNodeButtonSpeichernNeuText = document.createTextNode('+');
+                const iNodeButtonSpeichernNeuText = document.createTextNode('\u2714');
                 // Eventlistener NeuSpeichernButton
                 iNodeButtonSpeichernNeu.addEventListener('click', function () {
                     presenter.btnAddSpeichernClick();
@@ -655,7 +655,7 @@
                 this.aNodeButtonSpeichernEdit.setAttribute('id', 'speichernEdit');
                 const iNodeButtonSpeichernEdit = document.createElement('i');
                 iNodeButtonSpeichernEdit.setAttribute('class', 'material-icons');
-                const iNodeButtonSpeichernEditText = document.createTextNode('+');
+                const iNodeButtonSpeichernEditText = document.createTextNode('\u2714');
                 // Eventlistener EditSpeichernButton
                 iNodeButtonSpeichernEdit.addEventListener('click', function () {
                     presenter.btnEditSpeichernClick(view.buttonSpeichernEdit.index);
@@ -697,7 +697,7 @@
     //===================================================================
     //========================== App ====================================
     //===================================================================
-    // presenter.init();
-    regServiceWorker();
+    presenter.init();
+    // regServiceWorker();
 
 })();
