@@ -240,7 +240,11 @@
                 this.anzeigeNode.appendChild(aNodeList);
             }
             // Add Button erzeugen
-            view.erzeugeAddButton();
+            if (daten == "") {
+                view.erzeugeAddButtonPulse();
+            } else {
+                view.erzeugeAddButton();
+            }
         },
         //======================================== view.renderOne ========================================
         renderOne: function (daten, index) {
@@ -562,11 +566,28 @@
         //======================================== view.erzeugeAddButton ========================================
         erzeugeAddButton: function () {
             const aNodeButtonAdd = document.createElement('a');
-            aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2')
+            aNodeButtonAdd.setAttribute('class', 'btn-floating btn-large green lighten-2')
             aNodeButtonAdd.setAttribute('id', 'add');
             const iNodeButtonAdd = document.createElement('i');
-            iNodeButtonAdd.setAttribute('class', 'material-icons');
-            const iNodeButtonAddText = document.createTextNode('\uFF0B');
+            iNodeButtonAdd.setAttribute('class', 'large material-icons');
+            const iNodeButtonAddText = document.createTextNode('add');
+            // Eventlistener Add Button
+            iNodeButtonAdd.addEventListener('click', function () {
+                presenter.btnAddClick();
+            });
+            // Add Button zusammensetzen
+            iNodeButtonAdd.appendChild(iNodeButtonAddText);
+            aNodeButtonAdd.appendChild(iNodeButtonAdd);
+            this.buttonNode.appendChild(aNodeButtonAdd);
+        },
+        //======================================== view.erzeugeAddButtonWithPulse ========================================
+        erzeugeAddButtonPulse: function () {
+            const aNodeButtonAdd = document.createElement('a');
+            aNodeButtonAdd.setAttribute('class', 'btn-floating pulse btn-large green lighten-2')
+            aNodeButtonAdd.setAttribute('id', 'add');
+            const iNodeButtonAdd = document.createElement('i');
+            iNodeButtonAdd.setAttribute('class', 'large material-icons');
+            const iNodeButtonAddText = document.createTextNode('add');
             // Eventlistener Add Button
             iNodeButtonAdd.addEventListener('click', function () {
                 presenter.btnAddClick();
@@ -579,12 +600,12 @@
         //======================================== view.erzeugeBackButton ========================================
         erzeugeBackButton: function () {
             const aNodeButtonBack = document.createElement('a');
-            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue-grey')
+            aNodeButtonBack.setAttribute('class', 'btn-floating btn-large blue-grey')
             aNodeButtonBack.setAttribute('id', 'back');
             aNodeButtonBack.setAttribute('style', 'float:left');
             const iNodeButtonBack = document.createElement('i');
-            iNodeButtonBack.setAttribute('class', 'material-icons');
-            const iNodeButtonBackText = document.createTextNode('\u2B05');
+            iNodeButtonBack.setAttribute('class', 'large material-icons');
+            const iNodeButtonBackText = document.createTextNode('arrow_back');
             // Eventlistener Back Button
             iNodeButtonBack.addEventListener('click', function () {
                 presenter.btnBackClick();
@@ -597,11 +618,11 @@
         //======================================== view.erzeugeEditButton ========================================
         erzeugeEditButton: function (daten, index) {
             const aNodeButtonEdit = document.createElement('a');
-            aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
+            aNodeButtonEdit.setAttribute('class', 'btn-floating btn-large blue lighten-2')
             aNodeButtonEdit.setAttribute('id', 'edit');
             const iNodeButtonEdit = document.createElement('i');
-            iNodeButtonEdit.setAttribute('class', 'material-icons');
-            const iNodeButtonEditText = document.createTextNode('\u270E');
+            iNodeButtonEdit.setAttribute('class', 'large material-icons');
+            const iNodeButtonEditText = document.createTextNode('edit');
             // Eventlistener Edit Button
             iNodeButtonEdit.addEventListener('click', function () {
                 presenter.btnEditClick(daten, index);
@@ -614,11 +635,11 @@
         //======================================== view.erzeugeDelButton ========================================
         erzeugeDelButton: function (index) {
             const aNodeButtonDel = document.createElement('a');
-            aNodeButtonDel.setAttribute('class', 'btn-floating btn-large waves-effect waves-light red lighten-2')
+            aNodeButtonDel.setAttribute('class', 'btn-floating btn-large red lighten-2')
             aNodeButtonDel.setAttribute('id', 'del');
             const iNodeButtonDel = document.createElement('i');
-            iNodeButtonDel.setAttribute('class', 'material-icons');
-            const iNodeButtonDelText = document.createTextNode('\u2716');
+            iNodeButtonDel.setAttribute('class', 'large material-icons');
+            const iNodeButtonDelText = document.createTextNode('delete_forever');
             // Eventlistener Del Button
             iNodeButtonDel.addEventListener('click', function () {
                 presenter.btnDelClick(index);
@@ -632,11 +653,11 @@
         buttonSpeichernNeu: {
             aNodeButtonSpeichernNeu: document.createElement('a'),
             erzeugen: function () {
-                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large waves-effect waves-light green lighten-2')
+                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating disabled btn-large green lighten-2')
                 this.aNodeButtonSpeichernNeu.setAttribute('id', 'speichernNew');
                 const iNodeButtonSpeichernNeu = document.createElement('i');
-                iNodeButtonSpeichernNeu.setAttribute('class', 'material-icons');
-                const iNodeButtonSpeichernNeuText = document.createTextNode('\u2714');
+                iNodeButtonSpeichernNeu.setAttribute('class', 'large material-icons');
+                const iNodeButtonSpeichernNeuText = document.createTextNode('save');
                 // Eventlistener NeuSpeichernButton
                 iNodeButtonSpeichernNeu.addEventListener('click', function () {
                     presenter.btnAddSpeichernClick();
@@ -652,7 +673,7 @@
             },
             einblenden: function () {
                 this.aNodeButtonSpeichernNeu.removeAttribute('class');
-                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large waves-effect waves-light green lighten-2');
+                this.aNodeButtonSpeichernNeu.setAttribute('class', 'btn-floating btn-large green lighten-2');
             }
         },
         //======================================== view.buttonSpeichernEdit ========================================
@@ -661,11 +682,11 @@
             aNodeButtonSpeichernEdit: document.createElement('a'),
             erzeugen: function (index) {
                 this.index = index;
-                this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2')
+                this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large blue lighten-2')
                 this.aNodeButtonSpeichernEdit.setAttribute('id', 'speichernEdit');
                 const iNodeButtonSpeichernEdit = document.createElement('i');
-                iNodeButtonSpeichernEdit.setAttribute('class', 'material-icons');
-                const iNodeButtonSpeichernEditText = document.createTextNode('\u2714');
+                iNodeButtonSpeichernEdit.setAttribute('class', 'large material-icons');
+                const iNodeButtonSpeichernEditText = document.createTextNode('save');
                 // Eventlistener EditSpeichernButton
                 iNodeButtonSpeichernEdit.addEventListener('click', function () {
                     presenter.btnEditSpeichernClick(view.buttonSpeichernEdit.index);
@@ -681,7 +702,7 @@
             },
             einblenden: function () {
                 this.aNodeButtonSpeichernEdit.removeAttribute('class');
-                this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large waves-effect waves-light blue lighten-2');
+                this.aNodeButtonSpeichernEdit.setAttribute('class', 'btn-floating btn-large blue lighten-2');
             }
         }
     };
