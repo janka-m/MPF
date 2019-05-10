@@ -7,7 +7,7 @@ let filesToCache = [
     './script.js',
     './manifest.json',
     './img/icon-192.png',
-    './img/icon-512.png',
+    './img/icon-512.png'
 ];
 
 // Dateien in Cache speichern

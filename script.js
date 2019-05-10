@@ -3,7 +3,7 @@
     //================================================================================================
     //======================================== Service Worker ========================================
     //================================================================================================
-    
+
     //======================================== serviceWorker.regServiceWorker ========================================
     const regServiceWorker = function () {
         if ('serviceWorker' in navigator) {
@@ -51,9 +51,9 @@
             dao.schreiben(this.datenArray);
         },
         //======================================== model.getDatum ========================================
-        getDatum: function(){
-            if (this.datenArray[this.datenArray.length -1] != undefined && this.datenArray[this.datenArray.length -1].datum != "") {
-                return this.datenArray[this.datenArray.length -1].datum;
+        getDatum: function () {
+            if (this.datenArray[this.datenArray.length - 1] != undefined && this.datenArray[this.datenArray.length - 1].datum != "") {
+                return this.datenArray[this.datenArray.length - 1].datum;
             } else {
                 return 'Keine Daten vorhanden!';
             }
@@ -73,8 +73,8 @@
             view.init();
             view.renderList(daten);
             view.renderDatum(model.getDatum());
-            
-           
+
+
         },
         //======================================== presenter.listElementClick ========================================
         listElementClick: function (index) {
