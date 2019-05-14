@@ -6,16 +6,10 @@
     "scope": "/",
     "display": "fullscreen",
     "icons": [{
-            "src": "img/icon-192.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        },
-        {
-            "src": "img/icon-512.png",
-            "type": "image/png",
-            "sizes": "512x512"
-        }
-    ],
+        "src": "img/icon.svg",
+        "type": "Scalable Vector Graphics/svg",
+        "sizes": "1920x1920"
+    }],
     "background_color": "#64b5f6",
     "theme_color": "#4db6ac"
 }
