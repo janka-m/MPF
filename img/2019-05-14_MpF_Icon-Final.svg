@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="icon_new.svg">
+   sodipodi:docname="2019-05-14_MpF_Icon-Final.svg"
+   inkscape:export-filename="C:\Users\Mar.Janka\AmeGit\MPF\img\icon-192.png"
+   inkscape:export-xdpi="9.6000004"
+   inkscape:export-ydpi="9.6000004">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -26,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.25"
-     inkscape:cx="231.88054"
+     inkscape:cx="37.88054"
      inkscape:cy="1128.4981"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -38,7 +41,8 @@
      inkscape:window-height="1017"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="false">
     <sodipodi:guide
        position="58.964286,600.98215"
        orientation="0,1"
@@ -79,14 +83,14 @@
        sodipodi:sides="6"
        sodipodi:cx="185.75864"
        sodipodi:cy="105.28387"
-       sodipodi:r1="76.786308"
+       sodipodi:r1="95.982887"
        sodipodi:r2="191.96577"
        sodipodi:arg1="-0.26179939"
        sodipodi:arg2="0.26179939"
        inkscape:flatsided="false"
        inkscape:rounded="0.2"
        inkscape:randomized="1.0125928e-13"
-       d="m 259.92851,85.410108 c 6.79192,25.347762 118.04674,44.210402 111.25483,69.558162 -6.79192,25.34775 -112.57274,-13.94413 -131.12858,4.61172 -18.55585,18.55584 20.73603,124.33667 -4.61173,131.12858 C 210.09528,297.50048 191.23264,186.24566 165.88488,179.45375 140.53712,172.66183 68.574182,259.58001 50.018335,241.02417 31.462488,222.46832 118.38067,150.50538 111.58876,125.15763 104.79685,99.809868 -6.4579741,80.947226 0.3339372,55.599468 7.1258484,30.25171 112.90667,69.543594 131.46252,50.987748 c 18.55584,-18.555847 -20.73604,-124.336669 4.61172,-131.128581 25.34776,-6.791911 44.2104,104.46291 69.55816,111.254822 25.34775,6.791911 97.31069,-80.12627 115.86654,-61.570423 18.55584,18.555847 -68.36234,90.518784 -61.57043,115.866542 z"
+       d="m 278.47099,80.441667 c 6.15745,22.979933 98.8698,51.546663 92.71235,74.526603 -6.15746,22.97993 -100.73207,1.36327 -117.55455,18.18575 -16.82248,16.82248 4.79418,111.39709 -18.18576,117.55455 -22.97993,6.15745 -51.54666,-86.5549 -74.52659,-92.71235 C 137.9365,191.83876 66.840816,257.84665 50.018335,241.02417 33.195854,224.20169 99.203742,153.106 93.046287,130.12607 86.888831,107.14613 -5.8235182,78.579405 0.3339372,55.599468 6.4913926,32.619532 101.066,54.236198 117.88849,37.413717 c 16.82248,-16.822482 -4.79419,-111.397094 18.18575,-117.55455 22.97993,-6.157455 51.54666,86.5548947 74.5266,92.71235 22.97993,6.157456 94.07562,-59.850432 110.8981,-43.027951 16.82248,16.822481 -49.18541,87.918165 -43.02795,110.898101 z"
        inkscape:transform-center-x="-27.991775"
        inkscape:transform-center-y="-53.414567"
        style="fill:#4db6ac;fill-opacity:1;stroke:none;stroke-width:3.72543335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -109,17 +113,18 @@
      inkscape:label="Schrift"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,211.00003)">
+     transform="translate(0,211.00003)"
+     sodipodi:insensitive="true">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20.79068756px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.51976717"
-       x="161.78044"
-       y="76.276131"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.56723404px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.63918084"
+       x="141.05103"
+       y="79.980873"
        id="text4536"><tspan
          sodipodi:role="line"
          id="tspan4534"
-         x="161.78044"
-         y="76.276131"
-         style="font-size:99.79529572px;fill:#ffffff;fill-opacity:1;stroke-width:0.51976717">MpF</tspan></text>
+         x="141.05103"
+         y="79.980873"
+         style="font-size:122.72271729px;fill:#ffffff;fill-opacity:1;stroke-width:0.63918084">MpF</tspan></text>
   </g>
 </svg>
